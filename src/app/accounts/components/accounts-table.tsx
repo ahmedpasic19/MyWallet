@@ -10,6 +10,7 @@ import { EditIcon, TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import DeleteAccountDialog from './dialogs/delete-account-dialog'
+import UpdateAccountDialog from './dialogs/update-account-diablog'
 import { DataTable } from '@/components/ui/data-table'
 
 const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
@@ -34,7 +35,9 @@ const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
                      <TrashIcon />
                   </Link>
 
-                  <EditIcon />
+                  <Link href={`?accId=${row.original.id}`}>
+                     <EditIcon />
+                  </Link>
                </ul>
             )
          },
@@ -45,6 +48,7 @@ const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
       <div className="w-full">
          <DataTable columns={columns} data={tableData} />
          <DeleteAccountDialog />
+         <UpdateAccountDialog />
       </div>
    )
 }

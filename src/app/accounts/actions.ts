@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { revalidatePath } from 'next/cache'
 
-import { addAccountSchema } from '@/schemas/account.schema'
+import { addAccountSchema, updateAccountSchema } from '@/schemas/account.schema'
 
 const prisma = new PrismaClient()
 
@@ -13,6 +13,14 @@ export async function getUserAccounts() {
    const userAccounts = await prisma.walletAccounts.findMany()
 
    return { accounts: userAccounts }
+}
+
+export async function getOneAccount(id: string) {
+   const account = await prisma.walletAccounts.findUnique({
+      where: { id },
+   })
+
+   return { account }
 }
 
 export async function addAccount(formData: FormData) {
@@ -24,6 +32,24 @@ export async function addAccount(formData: FormData) {
    const validate = addAccountSchema.parse(data)
 
    const newAccount = await prisma.walletAccounts.create({
+      data: validate,
+   })
+
+   revalidatePath('/accounts')
+   return { message: 'Successfully created!', account: newAccount }
+}
+
+export async function updateAccount(formData: FormData) {
+   const data = {
+      id: formData.get('id'),
+      name: formData.get('name'),
+      // userId: formData.get('userId'),
+   }
+
+   const validate = updateAccountSchema.parse(data)
+
+   const newAccount = await prisma.walletAccounts.update({
+      where: { id: validate.id },
       data: validate,
    })
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { WalletAccounts } from '@prisma/client'
 
 import React from 'react'
 
@@ -8,19 +9,25 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { addAccount } from '../actions'
+import { addAccount, updateAccount } from '../actions'
 
 import InputField from '@/components/form/input-field'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { addAccountSchema } from '@/schemas/account.schema'
+import { addAccountSchema, updateAccountSchema } from '@/schemas/account.schema'
 
-const AccountsForm = () => {
+type TProps = {
+   isEdit?: boolean
+   account?: WalletAccounts
+}
+
+const AccountsForm = ({ account, isEdit }: TProps) => {
    const form = useForm<addAccountSchema>({
-      resolver: zodResolver(addAccountSchema),
+      resolver: zodResolver(isEdit ? updateAccountSchema : addAccountSchema),
       defaultValues: {
          name: '',
       },
+      ...(isEdit && account ? { values: { ...account } } : {}),
    })
 
    const router = useRouter()
@@ -33,9 +40,17 @@ const AccountsForm = () => {
             formData.append(key[0], key[1]!.toString())
          }
 
-         await addAccount(formData)
+         if (!isEdit) {
+            await addAccount(formData)
 
-         toast.success('Account created')
+            toast.success('Account created')
+         }
+
+         if (isEdit) {
+            await updateAccount(formData)
+
+            toast.success('Account updated')
+         }
          router.back()
       } catch (error) {
          toast.error('An error accured')
