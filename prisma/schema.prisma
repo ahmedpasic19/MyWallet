@@ -77,7 +77,7 @@ model WalletAccounts {
 }
 
 enum RecordType {
-  EXPENCE
+  EXPENSE
   INCOME
 }
 
@@ -86,12 +86,16 @@ model Record {
   title  String
   amount Float
   date   DateTime
-  note   String
+  note   String?
 
   type RecordType
 
-  account   WalletAccounts @relation(fields: [accountId], references: [id])
-  accountId String
+  account    WalletAccounts @relation(fields: [accountId], references: [id])
+  accountId  String
+  category   Category?      @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  goal       Goal?          @relation(fields: [goalId], references: [id])
+  goalId     String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -125,6 +129,7 @@ model Goal {
   // userId String
 
   createdAt DateTime @default(now())
+  Record    Record[]
 }
 
 model Category {
@@ -137,4 +142,5 @@ model Category {
   // userId String
 
   createdAt DateTime @default(now())
+  Record    Record[]
 }

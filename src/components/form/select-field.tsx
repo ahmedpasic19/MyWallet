@@ -33,7 +33,11 @@ const SelectField = ({ desc, placeholder, name, label, options, value, ...props 
          render={({ field }) => (
             <FormItem>
                <FormLabel>{label}</FormLabel>
-               <Select onValueChange={field.onChange} defaultValue={field.value} value={value}>
+               <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  value={options.find((option) => option.value === value)?.value}
+               >
                   <FormControl>
                      <SelectTrigger>
                         <SelectValue placeholder={placeholder} {...props} />
