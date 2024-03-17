@@ -33,13 +33,12 @@ const AccountsForm = () => {
             formData.append(key[0], key[1]!.toString())
          }
 
-         const res = await addAccount(formData)
+         await addAccount(formData)
 
-         toast(res?.message)
+         toast.success('Account created')
          router.back()
       } catch (error) {
-         console.log(error)
-         // toast(errorimport toast, { Toaster } from 'react-hot-toast';)
+         toast.error('An error accured')
       }
    }
 

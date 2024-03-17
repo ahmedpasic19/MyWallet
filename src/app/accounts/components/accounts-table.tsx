@@ -1,0 +1,52 @@
+'use client'
+
+import { WalletAccounts } from '@prisma/client'
+import { ColumnDef } from '@tanstack/react-table'
+
+import React, { useMemo } from 'react'
+
+import { format } from 'date-fns'
+import { EditIcon, TrashIcon } from 'lucide-react'
+import Link from 'next/link'
+
+import DeleteAccountDialog from './dialogs/delete-account-dialog'
+import { DataTable } from '@/components/ui/data-table'
+
+const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
+   const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
+   const columns: ColumnDef<WalletAccounts>[] = [
+      {
+         accessorKey: 'name',
+         header: 'Name',
+      },
+      {
+         accessorKey: 'createdAt',
+         header: 'Date Added',
+         cell: ({ row }) => format(new Date(row.original.createdAt), 'dd.MM.yyyy'),
+      },
+      {
+         accessorKey: 'actions',
+         header: 'Actions',
+         cell: ({ row }) => {
+            return (
+               <ul className="flex gap-2">
+                  <Link href={`?dAcc=${row.original.id}`}>
+                     <TrashIcon />
+                  </Link>
+
+                  <EditIcon />
+               </ul>
+            )
+         },
+      },
+   ]
+
+   return (
+      <div className="w-full">
+         <DataTable columns={columns} data={tableData} />
+         <DeleteAccountDialog />
+      </div>
+   )
+}
+
+export default AccountsTable

@@ -4,7 +4,8 @@ import React from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import AccountsForm from './accounts-form'
+import AccountsForm from '../accounts-form'
+
 import MainDialog from '@/components/ui/main-dialog'
 
 const AddAccountDialog = () => {
