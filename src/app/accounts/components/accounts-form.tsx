@@ -26,6 +26,7 @@ const AccountsForm = ({ account, isEdit }: TProps) => {
       resolver: zodResolver(isEdit ? updateAccountSchema : addAccountSchema),
       defaultValues: {
          name: '',
+         note: '',
       },
       ...(isEdit && account ? { values: { ...account } } : {}),
    })
@@ -61,6 +62,7 @@ const AccountsForm = ({ account, isEdit }: TProps) => {
       <Form {...form}>
          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <InputField name="name" label="Name" placeholder="Example Account" autoComplete="off" />
+            <InputField name="note" label="Note" placeholder="Example note..." autoComplete="off" />
             <Button type="submit">Submit</Button>
          </form>
       </Form>

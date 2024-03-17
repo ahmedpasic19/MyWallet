@@ -21,6 +21,10 @@ const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
          header: 'Name',
       },
       {
+         accessorKey: 'note',
+         header: 'Note',
+      },
+      {
          accessorKey: 'createdAt',
          header: 'Date Added',
          cell: ({ row }) => format(new Date(row.original.createdAt), 'dd.MM.yyyy'),

@@ -26,6 +26,7 @@ export async function getOneAccount(id: string) {
 export async function addAccount(formData: FormData) {
    const data = {
       name: formData.get('name'),
+      note: formData.get('note'),
       // userId: formData.get('userId'),
    }
 
@@ -43,6 +44,7 @@ export async function updateAccount(formData: FormData) {
    const data = {
       id: formData.get('id'),
       name: formData.get('name'),
+      note: formData.get('note'),
       // userId: formData.get('userId'),
    }
 
