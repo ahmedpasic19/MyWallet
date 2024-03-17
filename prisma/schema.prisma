@@ -45,6 +45,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   // WalletAccounts WalletAccounts[]
+  // Goal          Goal[]
 }
 
 model VerificationRequest {
@@ -61,7 +62,9 @@ model VerificationRequest {
 model WalletAccounts {
   id String @id @default(cuid())
 
-  name String
+  name          String
+  note          String?
+  initialAmount Float?
 
   // user          User       @relation(fields: [userId], references: [id])
   // userId        String
@@ -107,4 +110,18 @@ model Transfer {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Goal {
+  id String @id @default(cuid())
+
+  name          String
+  note          String?
+  target        Float
+  initialAmount Float?
+
+  // user   User   @relation(fields: [userId], references: [id])
+  // userId String
+
+  createdAt DateTime @default(now())
 }
