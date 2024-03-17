@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Goal } from '@prisma/client'
+import { Category } from '@prisma/client'
 
 import React from 'react'
 
@@ -9,31 +9,31 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { addGoal, updateGoal } from '../actions'
+import { addCategory, updateCategory } from '../actions'
 
 import InputField from '@/components/form/input-field'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { createGoalSchema, updateGoalSchema } from '@/schemas/goal.schema'
+import { createCategorySchema, updateCategorySchema } from '@/schemas/category.schema'
 
 type TProps = {
    isEdit?: boolean
-   goal?: Goal
+   category?: Category
 }
 
-const GoalsForm = ({ goal, isEdit }: TProps) => {
-   const form = useForm<createGoalSchema>({
-      resolver: zodResolver(isEdit ? updateGoalSchema : createGoalSchema),
+const CategoriesForm = ({ category, isEdit }: TProps) => {
+   const form = useForm<createCategorySchema>({
+      resolver: zodResolver(isEdit ? updateCategorySchema : createCategorySchema),
       defaultValues: {
          name: '',
          note: '',
       },
-      ...(isEdit && goal ? { values: { ...goal } } : {}),
+      ...(isEdit && category ? { values: { ...category } } : {}),
    })
 
    const router = useRouter()
 
-   async function onSubmit(values: createGoalSchema) {
+   async function onSubmit(values: createCategorySchema) {
       try {
          const formData = new FormData()
 
@@ -42,15 +42,15 @@ const GoalsForm = ({ goal, isEdit }: TProps) => {
          }
 
          if (!isEdit) {
-            await addGoal(formData)
+            await addCategory(formData)
 
-            toast.success('Goal created')
+            toast.success('Category created')
          }
 
          if (isEdit) {
-            await updateGoal(formData)
+            await updateCategory(formData)
 
-            toast.success('Goal updated')
+            toast.success('Category updated')
          }
          router.back()
       } catch (error) {
@@ -61,26 +61,24 @@ const GoalsForm = ({ goal, isEdit }: TProps) => {
    return (
       <Form {...form}>
          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <InputField name="name" label="Name" placeholder="Example Goal" autoComplete="off" />
             <InputField
-               name="target"
-               type="number"
-               label="Target"
-               placeholder="Input target"
+               name="name"
+               label="Name"
+               placeholder="Example Category"
                autoComplete="off"
             />
             <InputField
-               name="initialAmount"
+               name="budget"
+               label="Monthly budget"
                type="number"
-               label="Initial Amount"
                placeholder="Input amount"
                autoComplete="off"
             />
-            <InputField name="note" label="Note" placeholder="My note..." autoComplete="off" />
+            <InputField name="note" label="Note" placeholder="Example note..." autoComplete="off" />
             <Button type="submit">Submit</Button>
          </form>
       </Form>
    )
 }
 
-export default GoalsForm
+export default CategoriesForm
