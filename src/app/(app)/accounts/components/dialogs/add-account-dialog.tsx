@@ -8,7 +8,7 @@ import AccountsForm from '../accounts-form'
 
 import MainDialog from '@/components/ui/main-dialog'
 
-const AddAccountDialog = () => {
+const AddAccountDialog = ({ noBtn }: { noBtn?: boolean }) => {
    const searchParams = useSearchParams()
    const router = useRouter()
 
@@ -20,6 +20,7 @@ const AddAccountDialog = () => {
          open={isOpen}
          onOpenChange={() => (isOpen ? router.back() : router.push('?addAcc=true'))}
          btnLabel="Add new"
+         noBtn={noBtn}
       >
          <AccountsForm />
       </MainDialog>
