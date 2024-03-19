@@ -12,7 +12,8 @@ const Navbar = () => {
       { label: 'Accounts', href: '/accounts' },
       { label: 'Goals', href: '/goals' },
       { label: 'Categories', href: '/categories' },
-      { label: 'Income', href: '/records' },
+      { label: 'Expense', href: '/expense' },
+      { label: 'Income', href: '/income' },
    ]
 
    return (
