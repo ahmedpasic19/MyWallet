@@ -106,7 +106,7 @@ model Transfer {
   title  String
   amount Float
   date   DateTime
-  note   String
+  note   String?
 
   accountFrom   WalletAccounts @relation(name: "AccountFrom", fields: [accountFromId], references: [id])
   accountFromId String

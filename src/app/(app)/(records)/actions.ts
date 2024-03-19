@@ -75,7 +75,7 @@ export async function updateRecord(formData: FormData) {
 
    if (validate.type === 'EXPENSE') revalidatePath('/expense')
    if (validate.type === 'INCOME') revalidatePath('/income')
-   return { message: 'Successfully updated!', category: updatedRecord }
+   return { message: 'Successfully updated!', record: updatedRecord }
 }
 
 export async function deleteRecord(id: string) {
@@ -85,5 +85,5 @@ export async function deleteRecord(id: string) {
 
    if (deletedRecord.type === 'EXPENSE') revalidatePath('/expense')
    if (deletedRecord.type === 'INCOME') revalidatePath('/income')
-   return { message: 'Category deleted', record: deletedRecord }
+   return { message: 'Transfer deleted', record: deletedRecord }
 }

@@ -11,7 +11,7 @@ import RecordsForm from '../records-form'
 
 import MainDialog from '@/components/ui/main-dialog'
 
-const UpdateAccountDialog = () => {
+const UpdateRecordDialog = () => {
    const [record, setRecord] = useState({} as Record)
 
    const searchParams = useSearchParams()
@@ -41,4 +41,4 @@ const UpdateAccountDialog = () => {
    )
 }
 
-export default UpdateAccountDialog
+export default UpdateRecordDialog
