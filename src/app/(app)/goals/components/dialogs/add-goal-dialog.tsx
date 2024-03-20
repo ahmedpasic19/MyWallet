@@ -8,7 +8,7 @@ import GoalsForm from '../goals-form'
 
 import MainDialog from '@/components/ui/main-dialog'
 
-const AddGoalDialog = () => {
+const AddGoalDialog = ({ noBtn }: { noBtn?: boolean }) => {
    const searchParams = useSearchParams()
    const router = useRouter()
 
@@ -20,6 +20,7 @@ const AddGoalDialog = () => {
          open={isOpen}
          onOpenChange={() => (isOpen ? router.back() : router.push('?addGoal=true'))}
          btnLabel="Add new"
+         noBtn={noBtn}
       >
          <GoalsForm />
       </MainDialog>

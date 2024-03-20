@@ -15,6 +15,32 @@ export async function getUserGoals() {
    return { goals }
 }
 
+export async function getUserGoalsWithTotal() {
+   const goals = await prisma.goal.findMany({
+      include: { Record: { select: { id: true, amount: true, type: true } } },
+   })
+
+   // Sum the records for all goals
+   const summedGoals = goals?.map((goal) => {
+      const recordsSum = goal.Record.reduce(
+         (prev, curr) => {
+            if (curr.type === 'EXPENSE') return { ...prev, expense: prev.expense + curr.amount }
+            if (curr.type === 'INCOME') return { ...prev, income: prev.income + curr.amount }
+
+            return prev
+         },
+         { income: 0, expense: 0 },
+      )
+
+      // Total afet all the calculations
+      const total = recordsSum.income - recordsSum.expense
+
+      return { ...goal, total }
+   })
+
+   return { goals: summedGoals }
+}
+
 export async function getOneGoal(id: string) {
    const goal = await prisma.goal.findUnique({
       where: { id },
