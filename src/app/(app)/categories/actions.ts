@@ -15,6 +15,32 @@ export async function getUserCategories() {
    return { categories: userCategories }
 }
 
+export async function getUserCategoriesWithTotal() {
+   const categories = await prisma.category.findMany({
+      include: { Record: { select: { id: true, amount: true, type: true } } },
+   })
+
+   // Sum the records for all categories
+   const summedCategories = categories?.map((category) => {
+      const recordsSum = category.Record.reduce(
+         (prev, curr) => {
+            if (curr.type === 'EXPENSE') return { ...prev, expense: prev.expense + curr.amount }
+            if (curr.type === 'INCOME') return { ...prev, income: prev.income + curr.amount }
+
+            return prev
+         },
+         { income: 0, expense: 0 },
+      )
+
+      // Total afet all the calculations
+      const total = recordsSum.income - recordsSum.expense
+
+      return { ...category, total }
+   })
+
+   return { categories: summedCategories }
+}
+
 export async function getOneCategory(id: string) {
    const category = await prisma.category.findUnique({
       where: { id },

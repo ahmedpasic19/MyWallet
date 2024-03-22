@@ -8,7 +8,7 @@ import CategoriesForm from '../categories-form'
 
 import MainDialog from '@/components/ui/main-dialog'
 
-const AddCategoryDialog = () => {
+const AddCategoryDialog = ({ noBtn }: { noBtn?: boolean }) => {
    const searchParams = useSearchParams()
    const router = useRouter()
 
@@ -20,6 +20,7 @@ const AddCategoryDialog = () => {
          open={isOpen}
          onOpenChange={() => (isOpen ? router.back() : router.push('?addCategory=true'))}
          btnLabel="Add new"
+         noBtn={noBtn}
       >
          <CategoriesForm />
       </MainDialog>

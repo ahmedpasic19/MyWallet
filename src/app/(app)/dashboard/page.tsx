@@ -2,6 +2,8 @@ import React, { Suspense } from 'react'
 
 import AccountsList from '../accounts/components/accounts-list'
 import AccountsListSkeleton from '../accounts/components/skeleton/accounts-list-skeleton'
+import CategoriesList from '../categories/components/categories-list'
+import CategoriesListSkeleton from '../categories/components/skeleton/categories-list-skeleton'
 import GoalsList from '../goals/components/goals-list'
 import GoalsListSkeleton from '../goals/components/skeleton/goals-list-skeleton'
 
@@ -16,11 +18,20 @@ export default function DashboardPage() {
                <AccountsList />
             </Suspense>
          </section>
-         <section className="mt-10">
-            <H4>Goals</H4>
-            <Suspense fallback={<GoalsListSkeleton />}>
-               <GoalsList />
-            </Suspense>
+         <section className="flex flex-col gap-4 mt-10">
+            <div>
+               <H4>Goals</H4>
+               <Suspense fallback={<GoalsListSkeleton />}>
+                  <GoalsList />
+               </Suspense>
+            </div>
+
+            <div>
+               <H4>Categories</H4>
+               <Suspense fallback={<CategoriesListSkeleton />}>
+                  <CategoriesList />
+               </Suspense>
+            </div>
          </section>
       </div>
    )
