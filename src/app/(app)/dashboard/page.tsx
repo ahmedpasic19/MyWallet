@@ -7,15 +7,32 @@ import CategoriesListSkeleton from '../categories/components/skeleton/categories
 import GoalsList from '../goals/components/goals-list'
 import GoalsListSkeleton from '../goals/components/skeleton/goals-list-skeleton'
 
+import DashboardExpenses from './components/dashboard-expenses'
+import DashboardIncomes from './components/dashboard-incomes'
+import DashboardTransfers from './components/dashboard-transfers'
 import { H4 } from '@/components/ui/typography'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
    return (
-      <div className="flex justify-center gap-5">
-         <section className="mt-10 w-full max-w-2xl">
-            <H4>Accounts</H4>
-            <Suspense fallback={<AccountsListSkeleton />}>
-               <AccountsList />
+      <div className="flex justify-center gap-5 pb-10">
+         <section className="mt-10 w-full max-w-2xl flex flex-col gap-4">
+            <div>
+               <H4>Accounts</H4>
+               <Suspense fallback={<AccountsListSkeleton />}>
+                  <AccountsList />
+               </Suspense>
+            </div>
+
+            <Suspense fallback={<p>Loading..</p>}>
+               <DashboardExpenses />
+            </Suspense>
+
+            <Suspense fallback={<p>Loading..</p>}>
+               <DashboardIncomes />
+            </Suspense>
+
+            <Suspense fallback={<p>Loading..</p>}>
+               <DashboardTransfers />
             </Suspense>
          </section>
          <section className="flex flex-col gap-4 mt-10">

@@ -2,6 +2,8 @@
 
 import { signOut, useSession } from 'next-auth/react'
 
+import { buttonVariants } from '../ui/button'
+
 const AuthBtns = () => {
    const { data: session, status } = useSession()
 
@@ -22,7 +24,9 @@ const AuthBtns = () => {
 
    return (
       <div className="flex items-center">
-         <a href="/api/auth/signin">Sign in</a>
+         <a href="/api/auth/signin" className={buttonVariants({ variant: 'link' })}>
+            Sign in
+         </a>
       </div>
    )
 }
