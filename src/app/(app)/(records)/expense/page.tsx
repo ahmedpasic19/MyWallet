@@ -14,7 +14,7 @@ export default async function ExpensePage() {
          </div>
          <div className="w-full ">
             <Suspense fallback={<p>Loading...</p>}>
-               <RecordsTable data={data?.records} />
+               <RecordsTable data={data?.records} type="EXPENSE" />
             </Suspense>
          </div>
       </div>

@@ -19,15 +19,18 @@ const AddRecordDialog = ({ type }: TProps) => {
    const router = useRouter()
 
    const isOpen = searchParams.get('addRecord') === 'true'
+   const paramsType = searchParams.get('type')?.toUpperCase() as RecordType
 
    return (
       <MainDialog
          title="Add new record"
-         open={isOpen}
-         onOpenChange={() => (isOpen ? router.back() : router.push('?addRecord=true'))}
+         open={isOpen && paramsType === type}
+         onOpenChange={() =>
+            isOpen ? router.back() : router.push(`?addRecord=true&type=${type.toLocaleLowerCase()}`)
+         }
          btnLabel="Add new"
       >
-         <RecordsForm type={type} />
+         <RecordsForm type={paramsType} />
       </MainDialog>
    )
 }

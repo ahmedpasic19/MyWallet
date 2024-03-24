@@ -1,5 +1,7 @@
 'use client'
 
+import { RecordType } from '@prisma/client'
+
 import React from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -10,11 +12,16 @@ import { deleteRecord } from '../../actions'
 import { Button } from '@/components/ui/button'
 import MainDialog from '@/components/ui/main-dialog'
 
-const DeleteRecordDialog = () => {
+type TProps = {
+   type: RecordType
+}
+
+const DeleteRecordDialog = ({ type }: TProps) => {
    const searchParams = useSearchParams()
    const router = useRouter()
 
    const isOpen = searchParams.get('dRec') ? true : false
+   const paramsType = searchParams.get('type')?.toUpperCase() as RecordType
 
    const handleDelete = async () => {
       try {
@@ -31,7 +38,7 @@ const DeleteRecordDialog = () => {
    return (
       <MainDialog
          title="Delete record"
-         open={isOpen}
+         open={isOpen && paramsType === type}
          onOpenChange={() => (isOpen ? router.back() : router.push('?dRec=true'))}
          noBtn
       >

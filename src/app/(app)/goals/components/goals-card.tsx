@@ -20,16 +20,18 @@ export const Card = ({ children, ...props }: LinkProps & { children: React.React
 }
 
 const GoalsCard = ({ goal }: { goal: Goal & { total: number } }) => {
+   const total = goal.total + (goal?.initialAmount ? +goal?.initialAmount : 0)
+
    return (
       <Card href={`?accId=${goal.id}`}>
          <div>
             <TargetIcon /> <h1>{goal.name}</h1>
          </div>
          <section className="flex items-center gap-2">
-            <Progress value={(goal.total / goal.target) * 100} className="w-full h-2" />
-            <div>{round((goal.total / goal.target) * 100, 0)}%</div>
+            <Progress value={(total / goal.target) * 100} className="w-full h-2" />
+            <div>{round((total / goal.target) * 100, 0)}%</div>
          </section>
-         <div>{formatCurrency(round(goal.total || 0))}</div>
+         <div>{formatCurrency(round(total || 0))}</div>
       </Card>
    )
 }

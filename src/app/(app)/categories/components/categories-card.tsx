@@ -32,7 +32,13 @@ const CategoriesCard = ({ category }: { category: Category & { total: number } }
             />
             <div>{round((category.total / category.budget) * 100 * -1, 0)}%</div>
          </section>
-         <div>{formatCurrency(round(category.total || 0) * -1)}</div>
+         <div>
+            {
+               category.total
+                  ? formatCurrency(round(category.total || 0) * -1)
+                  : formatCurrency(round(category.total || 0)) // Don't display in negatie if 0
+            }
+         </div>
       </Card>
    )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getUserRecordsByType } from '../../(records)/actions'
+import AddRecordDialog from '../../(records)/components/dialogs/add-record-dialog'
 import RecordsTable from '../../(records)/components/records-table'
 
 import { H4 } from '@/components/ui/typography'
@@ -10,8 +11,11 @@ export default async function DashboardExpenses() {
 
    return (
       <>
-         <H4>Expense</H4>
-         <RecordsTable data={expenseData.records} />
+         <div className="flex w-full justify-between">
+            <H4>Expense</H4>
+            <AddRecordDialog type="EXPENSE" />
+         </div>
+         <RecordsTable data={expenseData.records} type="EXPENSE" />
       </>
    )
 }

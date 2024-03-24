@@ -1,6 +1,6 @@
 'use client'
 
-import { Record } from '@prisma/client'
+import { Record, RecordType } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 
 import React, { useMemo } from 'react'
@@ -13,7 +13,7 @@ import DeleteRecordDialog from './dialogs/delete-record-dialog'
 import UpdateRecordDialog from './dialogs/update-record-dialog'
 import { DataTable } from '@/components/ui/data-table'
 
-const RecordsTable = ({ data }: { data: Record[] }) => {
+const RecordsTable = ({ data, type }: { data: Record[]; type: RecordType }) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<Record>[] = [
       {
@@ -56,11 +56,15 @@ const RecordsTable = ({ data }: { data: Record[] }) => {
          cell: ({ row }) => {
             return (
                <ul className="flex gap-2">
-                  <Link href={`?dRec=${row.original.id}`}>
+                  <Link
+                     href={`?dRec=${row.original.id}&type=${row.original.type.toLocaleLowerCase()}`}
+                  >
                      <TrashIcon />
                   </Link>
 
-                  <Link href={`?recId=${row.original.id}`}>
+                  <Link
+                     href={`?recId=${row.original.id}&type=${row.original.type.toLocaleLowerCase()}`}
+                  >
                      <EditIcon />
                   </Link>
                </ul>
@@ -72,8 +76,8 @@ const RecordsTable = ({ data }: { data: Record[] }) => {
    return (
       <div className="w-full">
          <DataTable columns={columns} data={tableData} />
-         <DeleteRecordDialog />
-         <UpdateRecordDialog />
+         <DeleteRecordDialog type={type} />
+         <UpdateRecordDialog type={type} />
       </div>
    )
 }
