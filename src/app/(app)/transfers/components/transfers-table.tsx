@@ -9,8 +9,8 @@ import { format } from 'date-fns'
 import { EditIcon, TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import DeleteTransferDialog from './dialogs/delete-record-dialog'
-import UpdateTransferDialog from './dialogs/update-record-dialog'
+import DeleteTransferDialog from './dialogs/delete-transfer-dialog'
+import UpdateTransferDialog from './dialogs/update-transfer-dialog'
 import { DataTable } from '@/components/ui/data-table'
 
 const TransfersTable = ({ data }: { data: Transfer[] }) => {
