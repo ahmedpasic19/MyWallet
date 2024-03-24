@@ -1,12 +1,9 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client'
-
 import { revalidatePath } from 'next/cache'
 
+import prisma from '@/lib/db'
 import { addAccountSchema, updateAccountSchema } from '@/schemas/account.schema'
-
-const prisma = new PrismaClient()
 
 // Currently not by userId
 export async function getUserAccounts() {

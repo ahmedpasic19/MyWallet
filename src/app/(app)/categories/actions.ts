@@ -1,12 +1,9 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client'
-
 import { revalidatePath } from 'next/cache'
 
+import prisma from '@/lib/db'
 import { createCategorySchema, updateCategorySchema } from '@/schemas/category.schema'
-
-const prisma = new PrismaClient()
 
 // Currently not by userId
 export async function getUserCategories() {

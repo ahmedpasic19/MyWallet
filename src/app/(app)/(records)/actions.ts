@@ -1,12 +1,11 @@
 'use server'
 
-import { PrismaClient, RecordType } from '@prisma/client'
+import { RecordType } from '@prisma/client'
 
 import { revalidatePath } from 'next/cache'
 
+import prisma from '@/lib/db'
 import { createRecordSchema, updateRecordSchmea } from '@/schemas/record.schema'
-
-const prisma = new PrismaClient()
 
 // Currently not by userId
 export async function getUserRecordsByType(type: RecordType) {
