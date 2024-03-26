@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE `Record` ADD COLUMN `goalId` VARCHAR(191) NULL;
-
--- AddForeignKey
-ALTER TABLE `Record` ADD CONSTRAINT `Record_goalId_fkey` FOREIGN KEY (`goalId`) REFERENCES `Goal`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
