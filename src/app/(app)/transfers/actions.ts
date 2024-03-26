@@ -42,6 +42,7 @@ export async function addTransfer(formData: FormData) {
    })
 
    revalidatePath('/transfers')
+   revalidatePath('/dashboard')
    return { message: 'Successfully created!', transfer: newTransfer }
 }
 
@@ -64,6 +65,7 @@ export async function updateTransfer(formData: FormData) {
    })
 
    revalidatePath('/transfers')
+   revalidatePath('/dashboard')
    return { message: 'Successfully updated!', transfer: updatedTransfer }
 }
 
@@ -73,5 +75,6 @@ export async function deleteTransfer(id: string) {
    })
 
    revalidatePath('/transfers')
+   revalidatePath('/dashboard')
    return { message: 'Transfer deleted', transfer: deletedTransfer }
 }

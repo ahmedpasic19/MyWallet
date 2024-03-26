@@ -61,6 +61,7 @@ export async function addCategory(formData: FormData) {
    })
 
    revalidatePath('/categories')
+   revalidatePath('/dashboard')
    return { message: 'Successfully created!', category: newCategorys }
 }
 
@@ -81,6 +82,7 @@ export async function updateCategory(formData: FormData) {
    })
 
    revalidatePath('/categories')
+   revalidatePath('/dashboard')
    return { message: 'Successfully created!', category: updatedCategory }
 }
 
@@ -90,5 +92,6 @@ export async function deleteCategory(id: string) {
    })
 
    revalidatePath('/categories')
+   revalidatePath('/dashboard')
    return { message: 'Category deleted', category: deletedCategory }
 }

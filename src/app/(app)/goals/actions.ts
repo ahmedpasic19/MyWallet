@@ -62,6 +62,7 @@ export async function addGoal(formData: FormData) {
    })
 
    revalidatePath('/goals')
+   revalidatePath('/dashboard')
    return { message: 'Successfully created!', goal: newGoal }
 }
 
@@ -83,6 +84,7 @@ export async function updateGoal(formData: FormData) {
    })
 
    revalidatePath('/goals')
+   revalidatePath('/dashboard')
    return { message: 'Successfully created!', goal: updateGoal }
 }
 
@@ -92,5 +94,6 @@ export async function deleteGoal(id: string) {
    })
 
    revalidatePath('/goals')
+   revalidatePath('/dashboard')
    return { message: 'Goal deleted', goal: deletedGoal }
 }
