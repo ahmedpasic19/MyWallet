@@ -18,7 +18,7 @@ export const Card = ({ children, ...props }: LinkProps & { children: React.React
    )
 }
 
-const AccountCard = ({ account }: { account: WalletAccounts & { total: number } }) => {
+const AccountCard = ({ account }: { account: Partial<WalletAccounts> & { total: number } }) => {
    return (
       <Card href={`?accId=${account.id}`}>
          <div>

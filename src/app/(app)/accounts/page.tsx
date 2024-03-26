@@ -10,7 +10,9 @@ export default async function AccountsPage() {
    return (
       <div className="h-screen pt-5 flex flex-col items-center px-20">
          <div className="mb-2 w-full flex items-start">
-            <AddAccountDialog />
+            <Suspense>
+               <AddAccountDialog />
+            </Suspense>
          </div>
          <div className="w-full ">
             <Suspense fallback={<p>Loading...</p>}>

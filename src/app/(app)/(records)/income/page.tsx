@@ -10,7 +10,9 @@ export default async function IncomePage() {
    return (
       <div className="h-screen pt-5 flex flex-col items-center px-20">
          <div className="mb-2 w-full flex items-start">
-            <AddRecordDialog type="INCOME" />
+            <Suspense>
+               <AddRecordDialog type="INCOME" />
+            </Suspense>
          </div>
          <div className="w-full ">
             <Suspense fallback={<p>Loading...</p>}>

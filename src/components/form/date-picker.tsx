@@ -56,6 +56,7 @@ export function DateField({ desc, placeholder, name, label, ...props }: TProps) 
                      <Calendar
                         mode="single"
                         selected={field.value}
+                        // @ts-expect-error // date picker onChange type
                         onSelect={field.onChange}
                         disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                         initialFocus
