@@ -11,7 +11,7 @@ export default async function AccountsList() {
    const accountsData = await getUserAccountsWithTotal()
 
    return (
-      <ul className="grid grid-cols-3 gap-4 w-full">
+      <ul className="sm:grid sm:grid-cols-3 gap-4 w-full flex flex-col">
          {accountsData.accounts.map((acc) => (
             <AccountCard key={Math.random()} account={acc} />
          ))}

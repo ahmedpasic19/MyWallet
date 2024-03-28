@@ -14,7 +14,7 @@ import { H4 } from '@/components/ui/typography'
 
 export default async function DashboardPage() {
    return (
-      <div className="flex justify-center gap-5 pb-10">
+      <div className="flex sm:flex-row flex-col justify-center gap-5 pb-10 sm:px-0 px-5">
          <section className="mt-10 w-full max-w-2xl flex flex-col gap-4">
             <div>
                <H4>Accounts</H4>

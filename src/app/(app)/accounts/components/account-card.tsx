@@ -11,7 +11,7 @@ export const Card = ({ children, ...props }: LinkProps & { children: React.React
    return (
       <Link
          {...props}
-         className="bg-white min-w-52 shadow-md rounded-md flex flex-col p-4 cursor-pointer hover:bg-gray-50"
+         className="bg-white sm:min-w-52 shadow-md rounded-md flex flex-col p-4 cursor-pointer hover:bg-gray-50"
       >
          {children}
       </Link>

@@ -124,6 +124,9 @@ devDependencies:
   postcss:
     specifier: ^8
     version: 8.4.35
+  prettier:
+    specifier: ^3.2.5
+    version: 3.2.5
   prettier-plugin-tailwindcss:
     specifier: ^0.5.12
     version: 0.5.12(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier@3.2.5)
