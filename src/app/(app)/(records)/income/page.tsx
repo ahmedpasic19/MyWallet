@@ -8,7 +8,7 @@ export default async function IncomePage() {
    const data = await getUserRecordsByType('INCOME')
 
    return (
-      <div className="h-screen pt-5 flex flex-col items-center px-20">
+      <div className="page">
          <div className="mb-2 w-full flex items-start">
             <Suspense>
                <AddRecordDialog type="INCOME" />
