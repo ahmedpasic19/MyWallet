@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import { buttonVariants } from './button'
 import {
@@ -16,6 +16,8 @@ const MainDrawer = ({
    desc,
    children,
    noBtn,
+   open,
+   onOpenChange,
 }: {
    btnLabel?: string
    title: string
@@ -27,8 +29,12 @@ const MainDrawer = ({
 }) => {
    const [openDrawer, setOpenDrawer] = useState(false)
 
+   useEffect(() => {
+      setOpenDrawer(open)
+   }, [open])
+
    return (
-      <Drawer open={openDrawer} onOpenChange={setOpenDrawer}>
+      <Drawer open={openDrawer} onOpenChange={setOpenDrawer} onClose={onOpenChange}>
          {!noBtn ? <DrawerTrigger className={buttonVariants()}>{btnLabel}</DrawerTrigger> : null}
 
          <DrawerContent>
@@ -36,7 +42,7 @@ const MainDrawer = ({
                <DrawerTitle>{title}</DrawerTitle>
                {desc && desc.length && <DrawerDescription>{desc}</DrawerDescription>}
             </DrawerHeader>
-            {children}
+            <div className="p-4">{children}</div>
          </DrawerContent>
       </Drawer>
    )
