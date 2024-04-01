@@ -2,7 +2,7 @@ import { Goal } from '@prisma/client'
 
 import React from 'react'
 
-import { TargetIcon } from 'lucide-react'
+import { MountainIcon } from 'lucide-react'
 import Link, { LinkProps } from 'next/link'
 
 import { Progress } from '@/components/ui/progress'
@@ -25,7 +25,7 @@ const GoalsCard = ({ goal }: { goal: Goal & { total: number } }) => {
    return (
       <Card href={`?accId=${goal.id}`}>
          <div>
-            <TargetIcon /> <h1>{goal.name}</h1>
+            <MountainIcon /> <h1>{goal.name}</h1>
          </div>
          <section className="flex items-center gap-2">
             <Progress value={(total / goal.target) * 100} className="w-full h-2" />

@@ -77,7 +77,13 @@ const GoalsForm = ({ goal, isEdit }: TProps) => {
                autoComplete="off"
             />
             <InputField name="note" label="Note" placeholder="My note..." autoComplete="off" />
-            <Button type="submit">Submit</Button>
+            <Button
+               type="submit"
+               disabled={form.formState.isSubmitting}
+               isLoading={form.formState.isSubmitting}
+            >
+               Submit
+            </Button>
          </form>
       </Form>
    )

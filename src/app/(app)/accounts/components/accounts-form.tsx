@@ -63,7 +63,13 @@ const AccountsForm = ({ account, isEdit }: TProps) => {
          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <InputField name="name" label="Name" placeholder="Example Account" autoComplete="off" />
             <InputField name="note" label="Note" placeholder="Example note..." autoComplete="off" />
-            <Button type="submit">Submit</Button>
+            <Button
+               type="submit"
+               disabled={form.formState.isSubmitting}
+               isLoading={form.formState.isSubmitting}
+            >
+               Submit
+            </Button>
          </form>
       </Form>
    )

@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
 
+import DashboardTableSkeleton from '../../dashboard/components/skeleton/dashboard-table-skeleton'
 import { getUserRecordsByType } from '../actions'
 import AddRecordDialog from '../components/dialogs/add-record-dialog'
 import RecordsTable from '../components/records-table'
@@ -18,7 +19,7 @@ export default async function IncomePage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <RecordsTable data={data?.records} type="INCOME" />
             </Suspense>
          </div>
