@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import React, { useMemo } from 'react'
 
 import { format } from 'date-fns'
-import { EditIcon, TrashIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import DeleteGoalDialog from './dialogs/delete-goal-dialog'
@@ -42,14 +42,14 @@ const GoalsTable = ({ data }: { data: Goal[] }) => {
          header: 'Actions',
          cell: ({ row }) => {
             return (
-               <ul className="flex gap-2">
+               <ul className="flex items-center justify-center">
                   <Link href={`?dGoal=${row.original.id}`}>
                      <TrashIcon />
                   </Link>
 
-                  <Link href={`?goalId=${row.original.id}`}>
+                  {/* <Link href={`?goalId=${row.original.id}`}>
                      <EditIcon />
-                  </Link>
+                  </Link> */}
                </ul>
             )
          },

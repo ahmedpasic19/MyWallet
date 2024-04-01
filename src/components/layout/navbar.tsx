@@ -9,7 +9,7 @@ import { links } from '@/data/page-links'
 
 const Navbar = () => {
    return (
-      <nav className="bg-white dark:bg-dark drop-shadow-lg py-1 flex justify-between gap-4a sm:h-auto h-12">
+      <nav className="bg-white dark:bg-dark drop-shadow-lg py-1 justify-between gap-4a sm:h-auto h-12 hidden sm:flex">
          <ul className="sm:flex gap-2 hidden">
             {links.map((link) => (
                <Link

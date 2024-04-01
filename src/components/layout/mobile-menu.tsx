@@ -17,10 +17,10 @@ const MobileMenu = () => {
    }
 
    return (
-      <div className="absolute min-h-screen sm:hidden block">
+      <div className="absolute sm:hidden block">
          {/* Hamburger icon */}
          <button
-            className="fixed top-5 right-5 md:hidden focus:outline-none flex flex-col gap-1 w-5 h-full"
+            className="fixed top-5 right-5 md:hidden focus:outline-none flex flex-col gap-1 w-5 h-5"
             onClick={toggleMenu}
          >
             <span className="p-[1px] w-full bg-primary"></span>

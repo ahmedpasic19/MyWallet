@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import React, { useMemo } from 'react'
 
 import { format } from 'date-fns'
-import { EditIcon, TrashIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import DeleteAccountDialog from './dialogs/delete-account-dialog'
@@ -34,14 +34,14 @@ const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
          header: 'Actions',
          cell: ({ row }) => {
             return (
-               <ul className="flex gap-2">
+               <ul className="flex items-center justify-center">
                   <Link href={`?dAcc=${row.original.id}`}>
                      <TrashIcon />
                   </Link>
 
-                  <Link href={`?accId=${row.original.id}`}>
+                  {/* <Link href={`?accId=${row.original.id}`}>
                      <EditIcon />
-                  </Link>
+                  </Link> */}
                </ul>
             )
          },
