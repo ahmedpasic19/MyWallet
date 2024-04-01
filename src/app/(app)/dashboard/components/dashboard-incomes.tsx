@@ -15,7 +15,11 @@ export default async function DashboardIncomes() {
             <H4>Income</H4>
             <AddRecordDialog type="INCOME" />
          </div>
-         <RecordsTable data={incomeData?.records} type="INCOME" />
+         <RecordsTable
+            data={incomeData?.records}
+            type="INCOME"
+            hiddenColumns={['category.name', 'goal.name', 'note', 'date', 'createdAt']}
+         />
       </>
    )
 }

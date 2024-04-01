@@ -15,7 +15,11 @@ export default async function DashboardExpenses() {
             <H4>Expense</H4>
             <AddRecordDialog type="EXPENSE" />
          </div>
-         <RecordsTable data={expenseData.records} type="EXPENSE" />
+         <RecordsTable
+            data={expenseData.records}
+            type="EXPENSE"
+            hiddenColumns={['category.name', 'goal.name', 'note', 'date', 'createdAt']}
+         />
       </>
    )
 }
