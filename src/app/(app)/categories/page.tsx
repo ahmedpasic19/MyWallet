@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react'
 
+import DashboardTableSkeleton from '../dashboard/components/skeleton/dashboard-table-skeleton'
+
 import { getUserCategories } from './actions'
 import CategoriesTable from './components/categories-table'
 import AddCategoryDialog from './components/dialogs/add-category-dialog'
@@ -17,7 +19,7 @@ export default async function CategoriesPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <CategoriesTable data={data?.categories} />
             </Suspense>
          </div>

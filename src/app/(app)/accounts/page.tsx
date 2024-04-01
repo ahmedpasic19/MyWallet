@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react'
 
+import DashboardTableSkeleton from '../dashboard/components/skeleton/dashboard-table-skeleton'
+
 import { getUserAccounts } from './actions'
 import AccountsTable from './components/accounts-table'
 import AddAccountDialog from './components/dialogs/add-account-dialog'
@@ -17,7 +19,7 @@ export default async function AccountsPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <AccountsTable data={data?.accounts} />
             </Suspense>
          </div>

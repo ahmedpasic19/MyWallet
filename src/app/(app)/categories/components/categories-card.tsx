@@ -2,7 +2,7 @@ import { Category } from '@prisma/client'
 
 import React from 'react'
 
-import { ToyBrickIcon } from 'lucide-react'
+import { BlocksIcon } from 'lucide-react'
 import Link, { LinkProps } from 'next/link'
 
 import { Progress } from '@/components/ui/progress'
@@ -23,7 +23,7 @@ const CategoriesCard = ({ category }: { category: Category & { total: number } }
    return (
       <Card href={`?accId=${category.id}`}>
          <div>
-            <ToyBrickIcon /> <h1>{category.name}</h1>
+            <BlocksIcon /> <h1>{category.name}</h1>
          </div>
          <section className="flex items-center gap-2">
             <Progress

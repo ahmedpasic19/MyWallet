@@ -10,6 +10,7 @@ import GoalsListSkeleton from '../goals/components/skeleton/goals-list-skeleton'
 import DashboardExpenses from './components/dashboard-expenses'
 import DashboardIncomes from './components/dashboard-incomes'
 import DashboardTransfers from './components/dashboard-transfers'
+import DashboardTableSkeleton from './components/skeleton/dashboard-table-skeleton'
 import { H4 } from '@/components/ui/typography'
 
 export default async function DashboardPage() {
@@ -23,15 +24,15 @@ export default async function DashboardPage() {
                </Suspense>
             </div>
 
-            <Suspense fallback={<p>Loading..</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <DashboardExpenses />
             </Suspense>
 
-            <Suspense fallback={<p>Loading..</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <DashboardIncomes />
             </Suspense>
 
-            <Suspense fallback={<p>Loading..</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <DashboardTransfers />
             </Suspense>
          </section>

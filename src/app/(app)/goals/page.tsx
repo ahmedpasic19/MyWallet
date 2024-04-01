@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react'
 
+import DashboardTableSkeleton from '../dashboard/components/skeleton/dashboard-table-skeleton'
+
 import { getUserGoals } from './actions'
 import AddGoalDialog from './components/dialogs/add-goal-dialog'
 import GoalsTable from './components/goals-table'
@@ -17,7 +19,7 @@ export default async function GoalsPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <GoalsTable data={data?.goals} />
             </Suspense>
          </div>

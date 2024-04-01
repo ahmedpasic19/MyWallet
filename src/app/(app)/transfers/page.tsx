@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react'
 
+import DashboardTableSkeleton from '../dashboard/components/skeleton/dashboard-table-skeleton'
+
 import { getUserTransfers } from './actions'
 import AddTransferDialog from './components/dialogs/add-transfer-dialog'
 import TransfersTable from './components/transfers-table'
@@ -17,7 +19,7 @@ export default async function TransfersPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<DashboardTableSkeleton />}>
                <TransfersTable data={data?.transfers} />
             </Suspense>
          </div>
