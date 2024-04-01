@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import React, { useMemo } from 'react'
 
 import { format } from 'date-fns'
-import { EditIcon, TrashIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import DeleteRecordDialog from './dialogs/delete-record-dialog'
@@ -55,18 +55,18 @@ const RecordsTable = ({ data, type }: { data: Record[]; type: RecordType }) => {
          header: 'Actions',
          cell: ({ row }) => {
             return (
-               <ul className="flex gap-2">
+               <ul className="flex items-center justify-center">
                   <Link
                      href={`?dRec=${row.original.id}&type=${row.original.type.toLocaleLowerCase()}`}
                   >
                      <TrashIcon />
                   </Link>
 
-                  <Link
+                  {/* <Link
                      href={`?recId=${row.original.id}&type=${row.original.type.toLocaleLowerCase()}`}
                   >
                      <EditIcon />
-                  </Link>
+                  </Link> */}
                </ul>
             )
          },

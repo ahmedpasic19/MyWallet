@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import React, { useMemo } from 'react'
 
 import { format } from 'date-fns'
-import { EditIcon, TrashIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import DeleteTransferDialog from './dialogs/delete-transfer-dialog'
@@ -51,14 +51,14 @@ const TransfersTable = ({ data }: { data: Transfer[] }) => {
          header: 'Actions',
          cell: ({ row }) => {
             return (
-               <ul className="flex gap-2">
+               <ul className="flex items-center justify-center">
                   <Link href={`?dTra=${row.original.id}`}>
                      <TrashIcon />
                   </Link>
 
-                  <Link href={`?traId=${row.original.id}`}>
+                  {/* <Link href={`?traId=${row.original.id}`}>
                      <EditIcon />
-                  </Link>
+                  </Link> */}
                </ul>
             )
          },
