@@ -106,7 +106,13 @@ const TransfersForm = ({ transfer, isEdit }: TProps) => {
                value={transfer?.accountToId ?? undefined}
             />
             <InputField name="note" label="Note" placeholder="Example note..." autoComplete="off" />
-            <Button type="submit">Submit</Button>
+            <Button
+               type="submit"
+               disabled={form.formState.isSubmitting}
+               isLoading={form.formState.isSubmitting}
+            >
+               Submit
+            </Button>
          </form>
       </Form>
    )

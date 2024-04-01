@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button'
 import MainDialog from '@/components/ui/main-dialog'
 
 const DeleteAccountDialog = () => {
+   const [isLoading, setIsLoading] = useState(false)
+
    const searchParams = useSearchParams()
    const router = useRouter()
 
@@ -18,13 +20,15 @@ const DeleteAccountDialog = () => {
 
    const handleDelete = async () => {
       try {
+         setIsLoading(true)
          await deleteAccount(searchParams.get('dAcc')!)
 
          router.back()
-
          toast.success('Account deleted')
       } catch (error) {
          toast.error('An error accured')
+      } finally {
+         setIsLoading(false)
       }
    }
 
@@ -39,7 +43,9 @@ const DeleteAccountDialog = () => {
             <Button variant="outline" onClick={() => router.back()}>
                Cancel
             </Button>
-            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleDelete} disabled={isLoading} isLoading={isLoading}>
+               Delete
+            </Button>
          </div>
       </MainDialog>
    )
