@@ -13,7 +13,15 @@ import DeleteRecordDialog from './dialogs/delete-record-dialog'
 import UpdateRecordDialog from './dialogs/update-record-dialog'
 import { DataTable } from '@/components/ui/data-table'
 
-const RecordsTable = ({ data, type }: { data: Record[]; type: RecordType }) => {
+const RecordsTable = ({
+   data,
+   type,
+   hiddenColumns,
+}: {
+   data: Record[]
+   type: RecordType
+   hiddenColumns?: string[]
+}) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<Record>[] = [
       {
@@ -25,10 +33,12 @@ const RecordsTable = ({ data, type }: { data: Record[]; type: RecordType }) => {
          header: 'Amount',
       },
       {
+         id: 'category.name',
          accessorKey: 'category.name',
          header: 'Category',
       },
       {
+         id: 'goal.name',
          accessorKey: 'goal.name',
          header: 'Goal',
       },
@@ -75,7 +85,7 @@ const RecordsTable = ({ data, type }: { data: Record[]; type: RecordType }) => {
 
    return (
       <div className="w-full">
-         <DataTable columns={columns} data={tableData} />
+         <DataTable columns={columns} data={tableData} hiddenColumns={hiddenColumns} />
          <DeleteRecordDialog type={type} />
          <UpdateRecordDialog type={type} />
       </div>

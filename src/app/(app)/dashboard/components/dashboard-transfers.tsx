@@ -15,7 +15,10 @@ export default async function DashboardTransfers() {
             <H4>Transfers</H4>
             <AddTransferDialog />
          </div>
-         <TransfersTable data={transfersData.transfers} />
+         <TransfersTable
+            data={transfersData.transfers}
+            hiddenColumns={['createdAt', 'date', 'note']}
+         />
       </>
    )
 }

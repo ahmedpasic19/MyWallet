@@ -13,7 +13,13 @@ import DeleteTransferDialog from './dialogs/delete-transfer-dialog'
 import UpdateTransferDialog from './dialogs/update-transfer-dialog'
 import { DataTable } from '@/components/ui/data-table'
 
-const TransfersTable = ({ data }: { data: Transfer[] }) => {
+const TransfersTable = ({
+   data,
+   hiddenColumns,
+}: {
+   data: Transfer[]
+   hiddenColumns?: string[]
+}) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<Transfer>[] = [
       {
@@ -67,7 +73,7 @@ const TransfersTable = ({ data }: { data: Transfer[] }) => {
 
    return (
       <div className="w-full">
-         <DataTable columns={columns} data={tableData} />
+         <DataTable columns={columns} data={tableData} hiddenColumns={hiddenColumns} />
          <DeleteTransferDialog />
          <UpdateTransferDialog />
       </div>
