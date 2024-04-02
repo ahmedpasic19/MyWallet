@@ -1,20 +1,22 @@
 'use client'
 
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
 import { buttonVariants } from '../ui/button'
 
+import { useCurrentUser } from '@/hooks/use-current-user'
+
 const AuthBtns = () => {
-   const { data: session, status } = useSession()
+   const user = useCurrentUser()
 
    const handleSignout = async () => {
       signOut()
    }
 
-   if (status === 'authenticated') {
+   if (user) {
       return (
          <div className="flex gap-4">
-            <p>Signed in as {session?.user?.email}</p>
+            <p>Signed in as {user?.email}</p>
             <button onClick={handleSignout} className="font-semibold">
                Sign out
             </button>
