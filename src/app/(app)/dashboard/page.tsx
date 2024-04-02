@@ -1,16 +1,14 @@
 import React, { Suspense } from 'react'
 
 import AccountsList from '../accounts/components/accounts-list'
-import AccountsListSkeleton from '../accounts/components/skeleton/accounts-list-skeleton'
 import CategoriesList from '../categories/components/categories-list'
-import CategoriesListSkeleton from '../categories/components/skeleton/categories-list-skeleton'
 import GoalsList from '../goals/components/goals-list'
-import GoalsListSkeleton from '../goals/components/skeleton/goals-list-skeleton'
 
 import DashboardExpenses from './components/dashboard-expenses'
 import DashboardIncomes from './components/dashboard-incomes'
 import DashboardTransfers from './components/dashboard-transfers'
 import DashboardTableSkeleton from './components/skeleton/dashboard-table-skeleton'
+import ListSkeleton from '@/components/skeleton/list-skeleton'
 import { H4 } from '@/components/ui/typography'
 
 export default async function DashboardPage() {
@@ -19,7 +17,7 @@ export default async function DashboardPage() {
          <section className="mt-10 w-full max-w-2xl flex flex-col gap-4">
             <div>
                <H4>Accounts</H4>
-               <Suspense fallback={<AccountsListSkeleton />}>
+               <Suspense fallback={<ListSkeleton />}>
                   <AccountsList />
                </Suspense>
             </div>
@@ -39,14 +37,14 @@ export default async function DashboardPage() {
          <section className="flex flex-col gap-4 mt-10">
             <div>
                <H4>Goals</H4>
-               <Suspense fallback={<GoalsListSkeleton />}>
+               <Suspense fallback={<ListSkeleton />}>
                   <GoalsList />
                </Suspense>
             </div>
 
             <div>
                <H4>Categories</H4>
-               <Suspense fallback={<CategoriesListSkeleton />}>
+               <Suspense fallback={<ListSkeleton />}>
                   <CategoriesList />
                </Suspense>
             </div>
