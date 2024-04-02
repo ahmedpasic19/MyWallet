@@ -4,8 +4,9 @@ import { PlusIcon } from 'lucide-react'
 
 import { getUserAccountsWithTotal } from '../actions'
 
-import AccountCard, { Card } from './account-card'
+import AccountCard from './account-card'
 import AddAccountDialog from './dialogs/add-account-dialog'
+import Box from '@/components/ui/box'
 
 export default async function AccountsList() {
    const accountsData = await getUserAccountsWithTotal()
@@ -15,11 +16,11 @@ export default async function AccountsList() {
          {accountsData.accounts.map((acc) => (
             <AccountCard key={Math.random()} account={acc} />
          ))}
-         <Card href="?addAcc=true">
+         <Box href="?addAcc=true">
             <div className="flex items-center justify-center h-full">
                <PlusIcon /> Add new
             </div>
-         </Card>
+         </Box>
 
          <AddAccountDialog noBtn />
       </ul>

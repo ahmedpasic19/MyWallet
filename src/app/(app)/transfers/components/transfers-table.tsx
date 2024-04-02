@@ -32,11 +32,11 @@ const TransfersTable = ({
       },
       {
          accessorKey: 'accountFrom.name',
-         header: 'Account From',
+         header: 'From',
       },
       {
          accessorKey: 'accountTo.name',
-         header: 'Account To',
+         header: 'To',
       },
       {
          accessorKey: 'note',
