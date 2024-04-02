@@ -19,7 +19,7 @@ export default async function TransfersPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<DashboardTableSkeleton />}>
+            <Suspense fallback={<DashboardTableSkeleton noBtn />}>
                <TransfersTable data={data?.transfers} />
             </Suspense>
          </div>
