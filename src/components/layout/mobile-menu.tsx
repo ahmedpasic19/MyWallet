@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
 
 import AuthBtns from './authbtns'
+import { ModeToggle } from './theme-toggle'
 import { links } from '@/data/page-links'
 
 const MobileMenu = () => {
@@ -32,7 +33,7 @@ const MobileMenu = () => {
          <div
             className={`${
                isOpen ? 'translate-x-0' : 'translate-x-full'
-            } fixed inset-y-0 right-0 z-40 w-3/4 max-w-xs bg-white shadow-lg overflow-y-auto transition-transform duration-300 ease-in-out z-100`}
+            } fixed inset-y-0 right-0 z-40 w-3/4 max-w-xs bg-card shadow-lg overflow-y-auto transition-transform duration-300 ease-in-out z-100`}
          >
             <div className="p-4">
                <nav className="w-full flex flex-col gap-4 items-start">
@@ -50,6 +51,10 @@ const MobileMenu = () => {
                      <AuthBtns />
                   </Suspense>
                </nav>
+            </div>
+
+            <div className="w-full flex items-center justify-center">
+               <ModeToggle />
             </div>
          </div>
 

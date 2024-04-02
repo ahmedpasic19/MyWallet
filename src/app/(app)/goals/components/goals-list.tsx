@@ -5,7 +5,8 @@ import { PlusIcon } from 'lucide-react'
 import { getUserGoalsWithTotal } from '../actions'
 
 import AddGoalDialog from './dialogs/add-goal-dialog'
-import GoalsCard, { Card } from './goals-card'
+import GoalsCard from './goals-card'
+import Box from '@/components/ui/box'
 
 export default async function GoalsList() {
    const goalsData = await getUserGoalsWithTotal()
@@ -15,11 +16,11 @@ export default async function GoalsList() {
          {goalsData.goals.map((goal) => (
             <GoalsCard key={Math.random()} goal={goal} />
          ))}
-         <Card href="?addGoal=true">
+         <Box href="?addGoal=true">
             <div className="flex items-center justify-center h-full">
                <PlusIcon /> Add new
             </div>
-         </Card>
+         </Box>
 
          <AddGoalDialog noBtn />
       </ul>

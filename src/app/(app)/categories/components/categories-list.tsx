@@ -4,8 +4,9 @@ import { PlusIcon } from 'lucide-react'
 
 import { getUserCategoriesWithTotal } from '../actions'
 
-import CategoriesCard, { Card } from './categories-card'
+import CategoriesCard from './categories-card'
 import AddCategoryDialog from './dialogs/add-category-dialog'
+import Box from '@/components/ui/box'
 
 export default async function CategoriesList() {
    const categoriesData = await getUserCategoriesWithTotal()
@@ -15,11 +16,11 @@ export default async function CategoriesList() {
          {categoriesData.categories.map((category) => (
             <CategoriesCard key={Math.random()} category={category} />
          ))}
-         <Card href="?addCategory=true">
+         <Box href="?addCategory=true">
             <div className="flex items-center justify-center h-full">
                <PlusIcon /> Add new
             </div>
-         </Card>
+         </Box>
 
          <AddCategoryDialog noBtn />
       </ul>
