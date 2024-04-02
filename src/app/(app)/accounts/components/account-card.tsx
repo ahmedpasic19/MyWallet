@@ -13,7 +13,7 @@ const AccountCard = ({ account }: { account: Partial<WalletAccounts> & { total: 
          <div>
             <CreditCardIcon /> <h1>{account.name}</h1>
          </div>
-         <div>{formatCurrency(round(account.total || 0))}</div>
+         <strong>{formatCurrency(round(account.total || 0))}</strong>
       </Box>
    )
 }
