@@ -3,7 +3,8 @@ import React from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
-import { auth } from '@/auth'
+import { auth } from '../../auth'
+
 import { Toaster } from '@/components/ui/sonner'
 
 export default async function Providers({ children }: { children: React.ReactNode }) {

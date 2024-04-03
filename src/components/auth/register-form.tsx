@@ -21,7 +21,7 @@ import {
    FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { RegisterSchema } from '@/schemas'
+import { RegisterSchema } from '@/schemas/auth.schema'
 
 export const RegisterForm = () => {
    const [error, setError] = useState<string | undefined>('')

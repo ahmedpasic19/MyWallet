@@ -3,7 +3,8 @@
 import { AuthError } from 'next-auth'
 import * as z from 'zod'
 
-import { signIn } from '@/auth'
+import { signIn } from '../../auth'
+
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation'
 import { getTwoFactorTokenByEmail } from '@/data/two-factor-token'
 import { getUserByEmail } from '@/data/user'
