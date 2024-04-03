@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useSearchParams } from 'next/navigation'
-import { BeatLoader } from 'react-spinners'
+
+import Loading from '../ui/loading'
 
 import { newVerification } from '@/actions/new-verification'
 import { CardWrapper } from '@/components/auth/card-wrapper'
@@ -47,7 +48,7 @@ export const NewVerificationForm = () => {
          backButtonHref="/auth/login"
       >
          <div className="flex items-center w-full justify-center">
-            {!success && !error && <BeatLoader />}
+            {!success && !error && <Loading />}
             <FormSuccess message={success} />
             {!success && <FormError message={error} />}
          </div>

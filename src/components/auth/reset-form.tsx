@@ -21,7 +21,7 @@ import {
    FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ResetSchema } from '@/schemas'
+import { ResetSchema } from '@/schemas/auth.schema'
 
 export const ResetForm = () => {
    const [error, setError] = useState<string | undefined>('')
