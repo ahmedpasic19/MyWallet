@@ -13,7 +13,7 @@ import DeleteGoalDialog from './dialogs/delete-goal-dialog'
 import UpdateGoalDialog from './dialogs/update-goal-diablog'
 import { DataTable } from '@/components/ui/data-table'
 
-const GoalsTable = ({ data }: { data: Goal[] }) => {
+const GoalsTable = ({ data }: { data: Goal[] | undefined }) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<Goal>[] = [
       {

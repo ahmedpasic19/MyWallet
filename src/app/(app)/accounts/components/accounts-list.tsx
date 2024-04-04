@@ -13,9 +13,7 @@ export default async function AccountsList() {
 
    return (
       <ul className="sm:grid sm:grid-cols-3 gap-4 w-full flex flex-col">
-         {accountsData.accounts.map((acc) => (
-            <AccountCard key={Math.random()} account={acc} />
-         ))}
+         {accountsData.accounts?.map((acc) => <AccountCard key={Math.random()} account={acc} />)}
          <Box href="?addAcc=true">
             <div className="flex items-center justify-center h-full">
                <PlusIcon /> Add new
