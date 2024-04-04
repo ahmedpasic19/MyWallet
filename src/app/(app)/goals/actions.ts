@@ -2,18 +2,31 @@
 
 import { revalidatePath } from 'next/cache'
 
+import { auth } from '@/auth'
 import prisma from '@/lib/db'
 import { createGoalSchema, updateGoalSchema } from '@/schemas/goal.schema'
 
-// Currently not by userId
 export async function getUserGoals() {
-   const goals = await prisma.goal.findMany()
+   const session = await auth()
 
-   return { goals }
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
+   const goals = await prisma.goal.findMany({ where: { userId: { equals: session.user.id } } })
+
+   return { goals, status: 200 }
 }
 
 export async function getUserGoalsWithTotal() {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const goals = await prisma.goal.findMany({
+      where: { userId: { equals: session.user.id } },
       include: { Record: { select: { id: true, amount: true, type: true } } },
    })
 
@@ -35,45 +48,62 @@ export async function getUserGoalsWithTotal() {
       return { ...goal, total }
    })
 
-   return { goals: summedGoals }
+   return { goals: summedGoals, status: 200 }
 }
 
 export async function getOneGoal(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const goal = await prisma.goal.findUnique({
       where: { id },
    })
 
-   return { goal }
+   return { goal, status: 200 }
 }
 
 export async function addGoal(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       name: formData.get('name'),
       initialAmount: formData.get('initialAmount'),
       target: formData.get('target'),
       note: formData.get('note'),
-      // userId: formData.get('userId'),
    }
 
    const validate = createGoalSchema.parse(data)
 
    const newGoal = await prisma.goal.create({
-      data: validate,
+      data: { ...validate, userId: session.user.id },
    })
 
    revalidatePath('/goals')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', goal: newGoal }
+
+   return { message: 'Successfully created!', status: 200, goal: newGoal }
 }
 
 export async function updateGoal(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       id: formData.get('id'),
       name: formData.get('name'),
       initialAmount: formData.get('initialAmount'),
       target: formData.get('target'),
       note: formData.get('note'),
-      // userId: formData.get('userId'),
    }
 
    const validate = updateGoalSchema.parse(data)
@@ -85,15 +115,23 @@ export async function updateGoal(formData: FormData) {
 
    revalidatePath('/goals')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', goal: updateGoal }
+
+   return { message: 'Successfully created!', status: 200, goal: updateGoal }
 }
 
 export async function deleteGoal(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const deletedGoal = await prisma.goal.delete({
       where: { id },
    })
 
    revalidatePath('/goals')
    revalidatePath('/dashboard')
-   return { message: 'Goal deleted', goal: deletedGoal }
+
+   return { message: 'Goal deleted', status: 200, goal: deletedGoal }
 }

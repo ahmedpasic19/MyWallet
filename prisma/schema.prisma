@@ -24,6 +24,11 @@ model User {
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  walletAccounts        WalletAccounts[]
+  goals                 Goal[]
+  categories            Category[]
+  records               Record[]
+  transfers             Transfer[]
 }
 
 model Account {
@@ -88,8 +93,8 @@ model WalletAccounts {
   note          String?
   initialAmount Float?
 
-  // user          User       @relation(fields: [userId], references: [id])
-  // userId        String
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String
   Record        Record[]
   TransfersFrom Transfer[] @relation(name: "AccountFrom")
   TransfersTo   Transfer[] @relation(name: "AccountTo")
@@ -117,6 +122,8 @@ model Record {
   categoryId String?
   goal       Goal?          @relation(fields: [goalId], references: [id])
   goalId     String?
+  user       User           @relation(fields: [userId], references: [id])
+  userId     String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -133,6 +140,8 @@ model Transfer {
   accountFromId String
   accountTo     WalletAccounts @relation(name: "AccountTo", fields: [accountToId], references: [id])
   accountToId   String
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -146,8 +155,8 @@ model Goal {
   target        Float
   initialAmount Float?
 
-  // user   User   @relation(fields: [userId], references: [id])
-  // userId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
   createdAt DateTime @default(now())
   Record    Record[]
@@ -159,8 +168,8 @@ model Category {
   note   String?
   budget Float
 
-  // user   User   @relation(fields: [userId], references: [id])
-  // userId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
   createdAt DateTime @default(now())
   Record    Record[]

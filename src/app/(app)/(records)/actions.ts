@@ -4,13 +4,19 @@ import { RecordType } from '@prisma/client'
 
 import { revalidatePath } from 'next/cache'
 
+import { auth } from '@/auth'
 import prisma from '@/lib/db'
 import { createRecordSchema, updateRecordSchmea } from '@/schemas/record.schema'
 
-// Currently not by userId
 export async function getUserRecordsByType(type: RecordType) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const userRecords = await prisma.record.findMany({
-      where: { type },
+      where: { type, userId: { equals: session.user?.id } },
       include: {
          account: { select: { name: true, id: true } },
          category: { select: { id: true, name: true } },
@@ -18,7 +24,7 @@ export async function getUserRecordsByType(type: RecordType) {
       },
    })
 
-   return { records: userRecords }
+   return { records: userRecords, status: 200 }
 }
 
 export async function getOneRecord(id: string) {
@@ -30,6 +36,12 @@ export async function getOneRecord(id: string) {
 }
 
 export async function addRecord(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       title: formData.get('title'),
       type: formData.get('type'),
@@ -44,16 +56,23 @@ export async function addRecord(formData: FormData) {
    const validate = createRecordSchema.parse(data)
 
    const newRecord = await prisma.record.create({
-      data: validate,
+      data: { ...validate, userId: session?.user.id },
    })
 
    if (validate.type === 'EXPENSE') revalidatePath('/expense')
    if (validate.type === 'INCOME') revalidatePath('/income')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', record: newRecord }
+
+   return { message: 'Successfully created!', statsu: 200, record: newRecord }
 }
 
 export async function updateRecord(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       id: formData.get('id'),
       title: formData.get('title'),
@@ -76,10 +95,17 @@ export async function updateRecord(formData: FormData) {
    if (validate.type === 'EXPENSE') revalidatePath('/expense')
    if (validate.type === 'INCOME') revalidatePath('/income')
    revalidatePath('/dashboard')
-   return { message: 'Successfully updated!', record: updatedRecord }
+
+   return { message: 'Successfully updated!', status: 200, record: updatedRecord }
 }
 
 export async function deleteRecord(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const deletedRecord = await prisma.record.delete({
       where: { id },
    })
@@ -87,5 +113,6 @@ export async function deleteRecord(id: string) {
    if (deletedRecord.type === 'EXPENSE') revalidatePath('/expense')
    if (deletedRecord.type === 'INCOME') revalidatePath('/income')
    revalidatePath('/dashboard')
-   return { message: 'Transfer deleted', record: deletedRecord }
+
+   return { message: 'Transfer deleted', status: 200, record: deletedRecord }
 }
