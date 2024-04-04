@@ -81,5 +81,5 @@ body,
    }
 }
 .page {
-   @apply flex h-screen flex-col items-center p-5 pt-5 sm:px-20;
+   @apply flex h-screen flex-col items-center p-5 sm:p-20;
 }

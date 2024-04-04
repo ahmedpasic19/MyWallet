@@ -11,7 +11,7 @@ import { links } from '@/data/page-links'
 
 const Navbar = () => {
    return (
-      <nav className="bg-card dark:bg-dark drop-shadow-lg py-1 justify-between gap-4a sm:h-auto h-12 hidden sm:flex">
+      <nav className="fixed top-0 w-full bg-card dark:bg-dark drop-shadow-lg py-1 justify-between gap-4a sm:h-auto h-12 hidden sm:flex">
          <ul className="sm:flex gap-2 hidden">
             {links.map((link) => (
                <Link
@@ -23,11 +23,7 @@ const Navbar = () => {
                </Link>
             ))}
          </ul>
-         {/* <div>
-            <Suspense fallback={<ButtonSkeleton />}>
-               <ModeToggle />
-            </Suspense>
-         </div> */}
+
          <div className="hidden sm:flex gap-4">
             <Suspense fallback={<ButtonSkeleton />}>
                <ModeToggle />
