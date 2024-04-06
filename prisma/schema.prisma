@@ -1,6 +1,6 @@
 // prisma/schema.prisma
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -14,7 +14,7 @@ enum UserRole {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
   name                  String?
   email                 String?                @unique
   emailVerified         DateTime?
@@ -32,17 +32,17 @@ model User {
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -51,7 +51,7 @@ model Account {
 }
 
 model VerificationToken {
-  id      String   @id @default(cuid())
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String
   token   String   @unique
   expires DateTime
@@ -60,7 +60,7 @@ model VerificationToken {
 }
 
 model PasswordResetToken {
-  id      String   @id @default(cuid())
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String
   token   String   @unique
   expires DateTime
@@ -69,7 +69,7 @@ model PasswordResetToken {
 }
 
 model TwoFactorToken {
-  id      String   @id @default(cuid())
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String
   token   String   @unique
   expires DateTime
@@ -78,23 +78,23 @@ model TwoFactorToken {
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  userId String
+  userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
 
 model WalletAccounts {
-  id String @id @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   name          String
   note          String?
   initialAmount Float?
 
   user          User       @relation(fields: [userId], references: [id])
-  userId        String
+  userId        String     @db.ObjectId
   Record        Record[]
   TransfersFrom Transfer[] @relation(name: "AccountFrom")
   TransfersTo   Transfer[] @relation(name: "AccountTo")
@@ -108,7 +108,7 @@ enum RecordType {
 }
 
 model Record {
-  id     String   @id @default(cuid())
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
   title  String
   amount Float
   date   DateTime
@@ -117,38 +117,38 @@ model Record {
   type RecordType
 
   account    WalletAccounts @relation(fields: [accountId], references: [id])
-  accountId  String
+  accountId  String         @db.ObjectId
   category   Category?      @relation(fields: [categoryId], references: [id])
-  categoryId String?
+  categoryId String?        @db.ObjectId
   goal       Goal?          @relation(fields: [goalId], references: [id])
-  goalId     String?
+  goalId     String?        @db.ObjectId
   user       User           @relation(fields: [userId], references: [id])
-  userId     String
+  userId     String         @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Transfer {
-  id     String   @id @default(cuid())
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
   title  String
   amount Float
   date   DateTime
   note   String?
 
   accountFrom   WalletAccounts @relation(name: "AccountFrom", fields: [accountFromId], references: [id])
-  accountFromId String
+  accountFromId String         @db.ObjectId
   accountTo     WalletAccounts @relation(name: "AccountTo", fields: [accountToId], references: [id])
-  accountToId   String
+  accountToId   String         @db.ObjectId
   user          User           @relation(fields: [userId], references: [id])
-  userId        String
+  userId        String         @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Goal {
-  id String @id @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   name          String
   note          String?
@@ -156,20 +156,20 @@ model Goal {
   initialAmount Float?
 
   user   User   @relation(fields: [userId], references: [id])
-  userId String
+  userId String @db.ObjectId
 
   createdAt DateTime @default(now())
   Record    Record[]
 }
 
 model Category {
-  id     String  @id @default(cuid())
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
   name   String
   note   String?
   budget Float
 
   user   User   @relation(fields: [userId], references: [id])
-  userId String
+  userId String @db.ObjectId
 
   createdAt DateTime @default(now())
   Record    Record[]
