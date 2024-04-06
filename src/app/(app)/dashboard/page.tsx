@@ -13,42 +13,44 @@ import { H4 } from '@/components/ui/typography'
 
 export default async function DashboardPage() {
    return (
-      <div className="flex sm:flex-row flex-col justify-center gap-5 pb-10 sm:px-0 px-5">
-         <section className="mt-10 w-full max-w-2xl flex flex-col gap-4">
-            <div>
-               <H4>Accounts</H4>
-               <Suspense fallback={<ListSkeleton />}>
-                  <AccountsList />
+      <div className="page">
+         <div className="flex sm:flex-row flex-col justify-center gap-5 sm:px-0 px-5">
+            <section className="w-full max-w-2xl flex flex-col gap-4">
+               <div>
+                  <H4>Accounts</H4>
+                  <Suspense fallback={<ListSkeleton />}>
+                     <AccountsList />
+                  </Suspense>
+               </div>
+
+               <Suspense fallback={<DashboardTableSkeleton />}>
+                  <DashboardExpenses />
                </Suspense>
-            </div>
 
-            <Suspense fallback={<DashboardTableSkeleton />}>
-               <DashboardExpenses />
-            </Suspense>
-
-            <Suspense fallback={<DashboardTableSkeleton />}>
-               <DashboardIncomes />
-            </Suspense>
-
-            <Suspense fallback={<DashboardTableSkeleton />}>
-               <DashboardTransfers />
-            </Suspense>
-         </section>
-         <section className="flex flex-col gap-4 mt-10">
-            <div>
-               <H4>Goals</H4>
-               <Suspense fallback={<ListSkeleton />}>
-                  <GoalsList />
+               <Suspense fallback={<DashboardTableSkeleton />}>
+                  <DashboardIncomes />
                </Suspense>
-            </div>
 
-            <div>
-               <H4>Categories</H4>
-               <Suspense fallback={<ListSkeleton />}>
-                  <CategoriesList />
+               <Suspense fallback={<DashboardTableSkeleton />}>
+                  <DashboardTransfers />
                </Suspense>
-            </div>
-         </section>
+            </section>
+            <section className="flex flex-col gap-4 mt-10">
+               <div>
+                  <H4>Goals</H4>
+                  <Suspense fallback={<ListSkeleton />}>
+                     <GoalsList />
+                  </Suspense>
+               </div>
+
+               <div>
+                  <H4>Categories</H4>
+                  <Suspense fallback={<ListSkeleton />}>
+                     <CategoriesList />
+                  </Suspense>
+               </div>
+            </section>
+         </div>
       </div>
    )
 }

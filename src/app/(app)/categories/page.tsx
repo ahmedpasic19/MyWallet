@@ -19,7 +19,7 @@ export default async function CategoriesPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<DashboardTableSkeleton />}>
+            <Suspense fallback={<DashboardTableSkeleton noBtn />}>
                <CategoriesTable data={data?.categories} />
             </Suspense>
          </div>

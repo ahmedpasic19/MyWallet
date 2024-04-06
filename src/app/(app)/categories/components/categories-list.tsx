@@ -13,7 +13,7 @@ export default async function CategoriesList() {
 
    return (
       <ul className="flex flex-col gap-4 w-full">
-         {categoriesData.categories.map((category) => (
+         {categoriesData.categories?.map((category) => (
             <CategoriesCard key={Math.random()} category={category} />
          ))}
          <Box href="?addCategory=true">

@@ -7,7 +7,7 @@ import { z } from 'zod'
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-   //  DATABASE_URL: z.string().url(),
+   DATABASE_URL: z.string().url(),
    NODE_ENV: z.enum(['development', 'test', 'production']),
    NEXTAUTH_SECRET:
       process.env.NODE_ENV === 'production' ? z.string().min(1) : z.string().min(1).optional(),
@@ -21,14 +21,7 @@ export const serverSchema = z.object({
    GOOGLE_CLIENT_ID: z.string(),
    GOOGLE_CLIENT_SECRET: z.string(),
    JWT_SECRET: z.string(),
-   POSTGRES_URL: z.string(),
-   POSTGRES_PRISMA_URL: z.string(),
-   POSTGRES_URL_NO_SSL: z.string(),
-   POSTGRES_URL_NON_POOLING: z.string(),
-   POSTGRES_USER: z.string(),
-   POSTGRES_HOST: z.string(),
-   POSTGRES_PASSWORD: z.string(),
-   POSTGRES_DATABASE: z.string(),
+   RESEND_API_KEY: z.string(),
 })
 
 /**
@@ -37,21 +30,14 @@ export const serverSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof serverSchema>]: z.infer<typeof serverSchema>[k] | undefined }}
  */
 export const serverEnv = {
-   // //  DATABASE_URL: process.env.DATABASE_URL,
+   DATABASE_URL: process.env.DATABASE_URL,
    NODE_ENV: process.env.NODE_ENV,
    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
    JWT_SECRET: process.env.JWT_SECRET,
-   POSTGRES_URL: process.env.POSTGRES_URL,
-   POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
-   POSTGRES_URL_NO_SSL: process.env.POSTGRES_URL_NO_SSL,
-   POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
-   POSTGRES_USER: process.env.POSTGRES_USER,
-   POSTGRES_HOST: process.env.POSTGRES_HOST,
-   POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-   POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
+   RESEND_API_KEY: process.env.RESEND_API_KEY,
 }
 
 /**
@@ -60,7 +46,7 @@ export const serverEnv = {
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-   // NEXT_PUBLIC_BASEAPI: z.string(),
+   NEXT_PUBLIC_APP_URL: z.string(),
 })
 
 /**
@@ -70,5 +56,5 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-   //   NEXT_PUBLIC_BASEAPI: process.env.NEXT_PUBLIC_BASEAPI,
+   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
 }

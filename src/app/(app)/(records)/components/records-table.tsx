@@ -18,7 +18,7 @@ const RecordsTable = ({
    type,
    hiddenColumns,
 }: {
-   data: Record[]
+   data: Record[] | undefined
    type: RecordType
    hiddenColumns?: string[]
 }) => {

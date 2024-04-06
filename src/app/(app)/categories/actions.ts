@@ -2,18 +2,33 @@
 
 import { revalidatePath } from 'next/cache'
 
+import { auth } from '@/auth'
 import prisma from '@/lib/db'
 import { createCategorySchema, updateCategorySchema } from '@/schemas/category.schema'
 
-// Currently not by userId
 export async function getUserCategories() {
-   const userCategories = await prisma.category.findMany()
+   const session = await auth()
 
-   return { categories: userCategories }
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
+   const userCategories = await prisma.category.findMany({
+      where: { userId: { equals: session.user.id } },
+   })
+
+   return { categories: userCategories, status: 200 }
 }
 
 export async function getUserCategoriesWithTotal() {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const categories = await prisma.category.findMany({
+      where: { userId: { equals: session.user.id } },
       include: { Record: { select: { id: true, amount: true, type: true } } },
    })
 
@@ -35,43 +50,60 @@ export async function getUserCategoriesWithTotal() {
       return { ...category, total }
    })
 
-   return { categories: summedCategories }
+   return { categories: summedCategories, status: 200 }
 }
 
 export async function getOneCategory(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const category = await prisma.category.findUnique({
       where: { id },
    })
 
-   return { category }
+   return { category, status: 200 }
 }
 
 export async function addCategory(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       name: formData.get('name'),
       note: formData.get('note'),
       budget: formData.get('budget'),
-      // userId: formData.get('userId'),
    }
 
    const validate = createCategorySchema.parse(data)
 
    const newCategorys = await prisma.category.create({
-      data: validate,
+      data: { ...validate, userId: session.user.id },
    })
 
    revalidatePath('/categories')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', category: newCategorys }
+
+   return { message: 'Successfully created!', status: 200, category: newCategorys }
 }
 
 export async function updateCategory(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       id: formData.get('id'),
       name: formData.get('name'),
       note: formData.get('note'),
       budget: formData.get('budget'),
-      // userId: formData.get('userId'),
    }
 
    const validate = updateCategorySchema.parse(data)
@@ -83,15 +115,23 @@ export async function updateCategory(formData: FormData) {
 
    revalidatePath('/categories')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', category: updatedCategory }
+
+   return { message: 'Successfully created!', status: 200, category: updatedCategory }
 }
 
 export async function deleteCategory(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const deletedCategory = await prisma.category.delete({
       where: { id },
    })
 
    revalidatePath('/categories')
    revalidatePath('/dashboard')
-   return { message: 'Category deleted', category: deletedCategory }
+
+   return { message: 'Category deleted', status: 200, category: deletedCategory }
 }

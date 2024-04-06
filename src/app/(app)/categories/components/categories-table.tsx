@@ -13,7 +13,7 @@ import DeleteCategoryDialog from './dialogs/delete-category-dialog'
 import UpdateCategoryDialog from './dialogs/update-category-diablog'
 import { DataTable } from '@/components/ui/data-table'
 
-const CategoriesTable = ({ data }: { data: Category[] }) => {
+const CategoriesTable = ({ data }: { data: Category[] | undefined }) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<Category>[] = [
       {

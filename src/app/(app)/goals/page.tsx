@@ -19,7 +19,7 @@ export default async function GoalsPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<DashboardTableSkeleton />}>
+            <Suspense fallback={<DashboardTableSkeleton noBtn />}>
                <GoalsTable data={data?.goals} />
             </Suspense>
          </div>
