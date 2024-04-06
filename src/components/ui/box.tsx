@@ -6,7 +6,7 @@ const Box = ({ children, ...props }: LinkProps & { children: React.ReactNode }) 
    return (
       <Link
          {...props}
-         className="bg-card min-w-52 shadow-md rounded-md flex flex-col p-4 cursor-pointer hover:bg-card/30 border-[0.25px] border-secondary"
+         className="bg-card min-w-52 shadow-md rounded-md flex flex-col p-4 cursor-pointer hover:bg-accent/50 border-[0.25px] border-secondary"
       >
          {children}
       </Link>

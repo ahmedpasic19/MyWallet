@@ -19,7 +19,7 @@ export default async function AccountsPage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<DashboardTableSkeleton />}>
+            <Suspense fallback={<DashboardTableSkeleton noBtn />}>
                <AccountsTable data={data?.accounts} />
             </Suspense>
          </div>

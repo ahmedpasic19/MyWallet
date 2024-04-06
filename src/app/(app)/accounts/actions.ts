@@ -2,18 +2,33 @@
 
 import { revalidatePath } from 'next/cache'
 
+import { auth } from '@/auth'
 import prisma from '@/lib/db'
 import { addAccountSchema, updateAccountSchema } from '@/schemas/account.schema'
 
-// Currently not by userId
 export async function getUserAccounts() {
-   const userAccounts = await prisma.walletAccounts.findMany()
+   const session = await auth()
 
-   return { accounts: userAccounts }
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
+   const userAccounts = await prisma.walletAccounts.findMany({
+      where: { userId: { equals: session.user.id } },
+   })
+
+   return { accounts: userAccounts, status: 200 }
 }
 
 export async function getUserAccountsWithTotal() {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const userAccounts = await prisma.walletAccounts.findMany({
+      where: { userId: { equals: session.user.id } },
       orderBy: { createdAt: 'desc' },
       include: {
          Record: { select: { id: true, amount: true, type: true } },
@@ -43,41 +58,58 @@ export async function getUserAccountsWithTotal() {
       return { ...acc, total }
    })
 
-   return { accounts: summedAccounts }
+   return { accounts: summedAccounts, status: 200 }
 }
 
 export async function getOneAccount(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const account = await prisma.walletAccounts.findUnique({
       where: { id },
    })
 
-   return { account }
+   return { account, status: 200 }
 }
 
 export async function addAccount(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       name: formData.get('name'),
       note: formData.get('note'),
-      // userId: formData.get('userId'),
    }
 
    const validate = addAccountSchema.parse(data)
 
    const newAccount = await prisma.walletAccounts.create({
-      data: validate,
+      data: { ...validate, userId: session.user.id },
    })
 
    revalidatePath('/accounts')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', account: newAccount }
+
+   return { message: 'Successfully created!', status: 200, account: newAccount }
 }
 
 export async function updateAccount(formData: FormData) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const data = {
       id: formData.get('id'),
       name: formData.get('name'),
       note: formData.get('note'),
-      // userId: formData.get('userId'),
    }
 
    const validate = updateAccountSchema.parse(data)
@@ -89,15 +121,23 @@ export async function updateAccount(formData: FormData) {
 
    revalidatePath('/accounts')
    revalidatePath('/dashboard')
-   return { message: 'Successfully created!', account: newAccount }
+
+   return { message: 'Successfully created!', status: 200, account: newAccount }
 }
 
 export async function deleteAccount(id: string) {
+   const session = await auth()
+
+   if (!session?.user.id) {
+      return { message: 'Not authenticated!', status: 403 }
+   }
+
    const deletedAccount = await prisma.walletAccounts.delete({
       where: { id },
    })
 
    revalidatePath('/accounts')
    revalidatePath('/dashboard')
-   return { message: 'Account deleted', account: deletedAccount }
+
+   return { message: 'Account deleted', status: 200, account: deletedAccount }
 }

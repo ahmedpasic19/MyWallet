@@ -19,7 +19,7 @@ export default async function ExpensePage() {
             </Suspense>
          </div>
          <div className="w-full ">
-            <Suspense fallback={<DashboardTableSkeleton />}>
+            <Suspense fallback={<DashboardTableSkeleton noBtn />}>
                <RecordsTable data={data?.records} type="EXPENSE" />
             </Suspense>
          </div>

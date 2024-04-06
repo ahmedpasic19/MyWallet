@@ -17,7 +17,7 @@ const TransfersTable = ({
    data,
    hiddenColumns,
 }: {
-   data: Transfer[]
+   data: Transfer[] | undefined
    hiddenColumns?: string[]
 }) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])

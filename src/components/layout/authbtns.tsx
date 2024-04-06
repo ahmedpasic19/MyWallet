@@ -1,21 +1,46 @@
 'use client'
 
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { buttonVariants } from '../ui/button'
 
+import { useCurrentUser } from '@/hooks/use-current-user'
+
 const AuthBtns = () => {
-   const { data: session, status } = useSession()
+   const user = useCurrentUser()
 
    const handleSignout = async () => {
       signOut()
    }
 
-   if (status === 'authenticated') {
+   function getUserInitials(name: string) {
+      // Extract only the first and last words from the name
+      const words = name.match(/\S+/g)
+
+      // If there are at least two words, extract initials from them
+      if (words && words.length >= 2) {
+         const firstName = words[0]
+         const lastName = words[words.length - 1]
+         return firstName[0].toUpperCase() + lastName[0].toUpperCase()
+      } else {
+         // If less than two words, return an empty string
+         return ''
+      }
+   }
+
+   if (user) {
       return (
          <div className="flex gap-4">
-            <p>Signed in as {session?.user?.email}</p>
-            <button onClick={handleSignout} className="font-semibold">
+            <div className="hidden sm:block">
+               {user.image ? (
+                  <Avatar>
+                     <AvatarImage src={user.image} />
+                     <AvatarFallback>{getUserInitials(user.name || '')}</AvatarFallback>
+                  </Avatar>
+               ) : null}
+            </div>
+            <button onClick={handleSignout} className={buttonVariants({ variant: 'ghost' })}>
                Sign out
             </button>
          </div>

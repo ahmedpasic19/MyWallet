@@ -13,7 +13,7 @@ import DeleteAccountDialog from './dialogs/delete-account-dialog'
 import UpdateAccountDialog from './dialogs/update-account-diablog'
 import { DataTable } from '@/components/ui/data-table'
 
-const AccountsTable = ({ data }: { data: WalletAccounts[] }) => {
+const AccountsTable = ({ data }: { data: WalletAccounts[] | undefined }) => {
    const tableData = useMemo(() => (Array.isArray(data) ? data : []), [data])
    const columns: ColumnDef<WalletAccounts>[] = [
       {

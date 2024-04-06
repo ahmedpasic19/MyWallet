@@ -20,7 +20,7 @@ const GoalsCard = ({ goal }: { goal: Goal & { total: number } }) => {
             <Progress value={(total / goal.target) * 100} className="w-full h-2" />
             <div>{round((total / goal.target) * 100, 0)}%</div>
          </section>
-         <div>{formatCurrency(round(total || 0))}</div>
+         <strong>{formatCurrency(round(total || 0))}</strong>
       </Box>
    )
 }
