@@ -30,7 +30,12 @@ const InputField = ({ desc, placeholder, name, label, ...props }: TProps) => {
             <FormItem>
                <FormLabel>{label}</FormLabel>
                <FormControl>
-                  <Input placeholder={placeholder} {...field} {...props} />
+                  <Input
+                     type={props.type ?? 'text'}
+                     placeholder={placeholder}
+                     {...field}
+                     {...props}
+                  />
                </FormControl>
                {desc ? <FormDescription>{desc}</FormDescription> : null}
                <FormMessage />
