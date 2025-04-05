@@ -100,4 +100,5 @@ body,
 /* Prevent zoom */
 body {
    touch-action: manipulation;
+   font-family: 'Poppins', sans-serif;
 }
