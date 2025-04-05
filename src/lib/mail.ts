@@ -29,9 +29,6 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 export const sendVerificationEmail = async (email: string, token: string) => {
    const confirmLink = `${domain}/auth/new-verification?token=${token}`
 
-   console.log('confirmLink', confirmLink)
-   console.log('TO:', email)
-
    await resend.emails.send({
       from: serverEnv.MAIL_FROM,
       to: email,

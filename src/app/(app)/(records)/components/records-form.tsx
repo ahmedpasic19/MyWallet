@@ -84,7 +84,6 @@ const RecordsForm = ({ record, isEdit, type }: TProps) => {
          }
          router.back()
       } catch (error) {
-         console.log(error)
          toast.error('An error accured')
       }
    }
