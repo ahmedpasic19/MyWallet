@@ -68,7 +68,7 @@ export const RegisterForm = () => {
                            <FormLabel className="text-[#cfcfcf]">Name</FormLabel>
                            <FormControl>
                               <Input
-                                 className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                 className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                  {...field}
                                  disabled={isPending}
                                  placeholder="John Doe"
@@ -86,7 +86,7 @@ export const RegisterForm = () => {
                            <FormLabel className="text-[#cfcfcf]">Email</FormLabel>
                            <FormControl>
                               <Input
-                                 className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                 className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                  {...field}
                                  disabled={isPending}
                                  placeholder="john.doe@example.com"
@@ -105,7 +105,7 @@ export const RegisterForm = () => {
                            <FormLabel className="text-[#cfcfcf]">Password</FormLabel>
                            <FormControl>
                               <Input
-                                 className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                 className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                  {...field}
                                  disabled={isPending}
                                  placeholder="******"
