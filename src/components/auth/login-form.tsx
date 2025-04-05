@@ -74,6 +74,7 @@ export const LoginForm = () => {
    return (
       <CardWrapper
          headerLabel="Welcome back"
+         headerDescription="Enter your email and password to access your account"
          backButtonLabel="Don't have an account?"
          backButtonHref="/auth/register"
          showSocial
@@ -87,9 +88,14 @@ export const LoginForm = () => {
                         name="code"
                         render={({ field }) => (
                            <FormItem>
-                              <FormLabel>Two Factor Code</FormLabel>
+                              <FormLabel className="text-[#cfcfcf]">Two Factor Code</FormLabel>
                               <FormControl>
-                                 <Input {...field} disabled={isPending} placeholder="123456" />
+                                 <Input
+                                    className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                    {...field}
+                                    disabled={isPending}
+                                    placeholder="123456"
+                                 />
                               </FormControl>
                               <FormMessage />
                            </FormItem>
@@ -103,9 +109,10 @@ export const LoginForm = () => {
                            name="email"
                            render={({ field }) => (
                               <FormItem>
-                                 <FormLabel>Email</FormLabel>
+                                 <FormLabel className="text-[#cfcfcf]">Email</FormLabel>
                                  <FormControl>
                                     <Input
+                                       className="bg-[#1a1a1a] outline-[#ffbe1b]"
                                        {...field}
                                        disabled={isPending}
                                        placeholder="john.doe@example.com"
@@ -121,9 +128,10 @@ export const LoginForm = () => {
                            name="password"
                            render={({ field }) => (
                               <FormItem>
-                                 <FormLabel>Password</FormLabel>
+                                 <FormLabel className="text-[#cfcfcf]">Password</FormLabel>
                                  <FormControl>
                                     <Input
+                                       className="bg-[#1a1a1a] outline-[#ffbe1b]"
                                        {...field}
                                        disabled={isPending}
                                        placeholder="******"
@@ -134,7 +142,7 @@ export const LoginForm = () => {
                                     size="sm"
                                     variant="link"
                                     asChild
-                                    className="px-0 font-normal"
+                                    className="px-0 font-normal text-[#FFBE1B]"
                                  >
                                     <Link href="/auth/reset">Forgot password?</Link>
                                  </Button>
@@ -147,7 +155,11 @@ export const LoginForm = () => {
                </div>
                <FormError message={error || urlError} />
                <FormSuccess message={success} />
-               <Button disabled={isPending} type="submit" className="w-full">
+               <Button
+                  disabled={isPending}
+                  type="submit"
+                  className="w-full bg-[#51A800] text-black"
+               >
                   {showTwoFactor ? 'Confirm' : 'Login'}
                </Button>
             </form>

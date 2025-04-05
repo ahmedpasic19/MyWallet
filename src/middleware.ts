@@ -14,11 +14,7 @@ export default auth((req) => {
    const isAuthRoute = authRoutes.includes(nextUrl.pathname)
    const isLandingPage = nextUrl.pathname === '/'
 
-   if (isLandingPage) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-   }
-
-   if (isApiAuthRoute) {
+   if (isApiAuthRoute || isLandingPage) {
       return
    }
 

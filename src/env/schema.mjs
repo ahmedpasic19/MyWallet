@@ -22,6 +22,7 @@ export const serverSchema = z.object({
    GOOGLE_CLIENT_SECRET: z.string(),
    JWT_SECRET: z.string(),
    RESEND_API_KEY: z.string(),
+   MAIL_FROM: z.string(),
 })
 
 /**
@@ -38,6 +39,7 @@ export const serverEnv = {
    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
    JWT_SECRET: process.env.JWT_SECRET,
    RESEND_API_KEY: process.env.RESEND_API_KEY,
+   MAIL_FROM: process.env.MAIL_FROM,
 }
 
 /**
@@ -45,9 +47,7 @@ export const serverEnv = {
  * This way you can ensure the app isn't built with invalid env vars.
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
-export const clientSchema = z.object({
-   NEXT_PUBLIC_APP_URL: z.string(),
-})
+export const clientSchema = z.object({})
 
 /**
  * You can't destruct `process.env` as a regular object, so you have to do
@@ -55,6 +55,4 @@ export const clientSchema = z.object({
  * and only used environment variables are included in the build.
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
-export const clientEnv = {
-   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-}
+export const clientEnv = {}
