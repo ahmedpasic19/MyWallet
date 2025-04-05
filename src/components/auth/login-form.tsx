@@ -91,7 +91,7 @@ export const LoginForm = () => {
                               <FormLabel className="text-[#cfcfcf]">Two Factor Code</FormLabel>
                               <FormControl>
                                  <Input
-                                    className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                    className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                     {...field}
                                     disabled={isPending}
                                     placeholder="123456"
@@ -112,7 +112,7 @@ export const LoginForm = () => {
                                  <FormLabel className="text-[#cfcfcf]">Email</FormLabel>
                                  <FormControl>
                                     <Input
-                                       className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                       className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                        {...field}
                                        disabled={isPending}
                                        placeholder="john.doe@example.com"
@@ -131,7 +131,7 @@ export const LoginForm = () => {
                                  <FormLabel className="text-[#cfcfcf]">Password</FormLabel>
                                  <FormControl>
                                     <Input
-                                       className="bg-[#1a1a1a] outline-[#ffbe1b]"
+                                       className="bg-[#1a1a1a] outline-[#ffbe1b] text-[#cfcfcf]"
                                        {...field}
                                        disabled={isPending}
                                        placeholder="******"
