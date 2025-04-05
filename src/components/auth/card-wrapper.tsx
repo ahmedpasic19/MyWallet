@@ -9,7 +9,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 interface CardWrapperProps {
    children: ReactNode
    headerLabel: string
-   headerDescription: string
+   headerDescription?: string
    backButtonLabel: string
    backButtonHref: string
    showSocial?: boolean
