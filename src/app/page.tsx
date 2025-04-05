@@ -49,7 +49,7 @@ export default function Home() {
                      </Link>
                      <Link
                         href={'/auth/register'}
-                        className={`${buttonVariants({ variant: 'default:' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
+                        className={`${buttonVariants({ variant: 'none' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
                      >
                         Sign Up
                      </Link>
@@ -74,7 +74,7 @@ export default function Home() {
                         <div className="flex flex-col gap-2 min-[400px]:flex-row">
                            <Link
                               href={'/auth/register'}
-                              className={`${buttonVariants({ variant: 'default:', size: 'lg' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
+                              className={`${buttonVariants({ variant: 'none', size: 'lg' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
                            >
                               Get Started
                            </Link>
@@ -543,7 +543,7 @@ export default function Home() {
                   <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
                      <Link
                         href={'/auth/register'}
-                        className={`${buttonVariants({ variant: 'default:', size: 'lg' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
+                        className={`${buttonVariants({ variant: 'none', size: 'lg' })} ml-4 bg-[#FFBE1B] text-[#0f0f0f] hover:bg-[#FFBE1B]/90`}
                      >
                         Get Started
                      </Link>
