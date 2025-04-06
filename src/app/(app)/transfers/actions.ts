@@ -51,6 +51,7 @@ export async function addTransfer(formData: FormData) {
       date: formData.get('date'),
       accountFromId: formData.get('accountFromId'),
       accountToId: formData.get('accountToId'),
+      goalId: formData.get('goalId'),
       note: formData.get('note'),
    }
 

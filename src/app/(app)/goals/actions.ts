@@ -27,7 +27,10 @@ export async function getUserGoalsWithTotal() {
 
    const goals = await prisma.goal.findMany({
       where: { userId: { equals: session.user.id } },
-      include: { Record: { select: { id: true, amount: true, type: true } } },
+      include: {
+         Record: { select: { id: true, amount: true, type: true } },
+         Transfer: { select: { id: true, amount: true, title: true } },
+      },
    })
 
    // Sum the records for all goals
@@ -42,8 +45,13 @@ export async function getUserGoalsWithTotal() {
          { income: 0, expense: 0 },
       )
 
+      // Sum the amount by transfer
+      const transferAmount = goal.Transfer.reduce((prev, curr) => {
+         return prev + curr.amount
+      }, 0)
+
       // Total afet all the calculations
-      const total = recordsSum.income - recordsSum.expense
+      const total = recordsSum.income - recordsSum.expense + transferAmount
 
       return { ...goal, total }
    })

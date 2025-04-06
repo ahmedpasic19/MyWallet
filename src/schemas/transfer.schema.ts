@@ -7,6 +7,7 @@ export const createTransferSchema = z.object({
    note: z.string().nullish(),
    accountFromId: z.string().min(1, 'Must provide account ID'),
    accountToId: z.string().min(1, 'Must provide account ID'),
+   goalId: z.string().nullish(),
 })
 export const updateTransferSchema = createTransferSchema.merge(
    z.object({
