@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💰 MyWallet
 
-## Getting Started
+**MyWallet** is a personal finance tracking application built with **NestJS**, **Prisma**, **MongoDB**, and **Auth.js**. It helps you take control of your finances by allowing you to track incomes, expenses, transfers between accounts, and set savings goals — all from a clean and intuitive dashboard.
 
-First, run the development server:
+---
+
+## 📸 Screenshots
+
+### 🏠 Landing Page
+
+![Landing Page](./screenshots/landing.png)
+
+### 📊 Dashboard
+
+![Dashboard](./screenshots/dashboard.png)
+
+### ➕ Add Expense / Income / Transfer
+
+<div align="center">
+  <img src="./screenshots/add-income.png" alt="Add Income" width="33%" />
+  <img src="./screenshots/add-expence.png" alt="Add Expense" width="33%" />
+  <img src="./screenshots/add-transfer.png" alt="Add Transfer" width="33%" />
+</div>
+
+---
+
+## 🔑 Features
+
+-  ✅ **Track Incomes & Expenses** – Easily log your earnings and spending.
+-  🔁 **Transfers Between Accounts** – For example, taking $20 from an ATM and putting it into your Wallet.
+-  🏦 **Accounts** – Bank, Wallet, Secret Stash, or any custom account.
+-  🗂️ **Categories** – Organize transactions by Food, Gas, Rent, etc.
+-  🎯 **Goals** – Save for specific goals like a new pair of shoes or a PlayStation 5.
+-  📊 **Dashboard** – Get a quick overview of your current financial status.
+-  🔐 **Authentication** – Sign in securely with Google using Auth.js.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ahmedpasic19/MyWallet.git
+cd mywallet
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 3. Configure Environment Variables
 
-## Learn More
+Create a `.env` file in the root directory and copy the contents of `.env.example` into it:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+JWT_SECRET=
+NODE_ENV=
+RESEND_API_KEY=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> 💡 Fill in the appropriate values for your setup (e.g., database URL, Google OAuth credentials, etc.)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 4. Generate Prisma Client & Sync Database
 
-## Deploy on Vercel
+```bash
+pnpm prisma generate
+pnpm prisma db push
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Start the Application
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+pnpm dev
+```
+
+Visit `http://localhost:3000` to use the app.
+
+---
+
+## ⚙️ Tech Stack
+
+| Technology | Purpose                            |
+| ---------- | ---------------------------------- |
+| Next.js    | Fullstack framework                |
+| Prisma     | Database ORM                       |
+| MongoDB    | NoSQL database                     |
+| Auth.js    | Authentication via Google          |
+| Resend     | Email notifications & varification |
+
+---
+
+## 🧪 Environment Variables
+
+Make sure to set the following in your `.env` file:
+
+```env
+DATABASE_URL=           # MongoDB connection string
+NEXTAUTH_SECRET=        # Auth.js session encryption
+NEXTAUTH_URL=           # e.g., http://localhost:3000
+GOOGLE_CLIENT_ID=       # Google OAuth client ID
+GOOGLE_CLIENT_SECRET=   # Google OAuth secret
+JWT_SECRET=             # JWT token encryption secret
+NODE_ENV=               # development or production
+RESEND_API_KEY=         # Resend email API key (optional)
+```
+
+---
+
+## 🙋‍♂️ Author
+
+Made with ❤️ by [ahmedpasic19](https://github.com/ahmedpasic19)
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+Feel free to use, modify, and distribute it as you wish.
