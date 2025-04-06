@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Transfer, WalletAccounts } from '@prisma/client'
+import { Goal, Transfer, WalletAccounts } from '@prisma/client'
 
 import React, { useEffect, useState } from 'react'
 
@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { getUserAccounts } from '../../accounts/actions'
+import { getUserGoals } from '../../goals/actions'
 import { addTransfer, updateTransfer } from '../actions'
 
 import { DateField } from '@/components/form/date-picker'
@@ -26,6 +27,7 @@ type TProps = {
 
 const TransfersForm = ({ transfer, isEdit }: TProps) => {
    const [account, setAccount] = useState([] as WalletAccounts[])
+   const [goals, setGoals] = useState([] as Goal[])
 
    const form = useForm<createTransferSchema>({
       resolver: zodResolver(isEdit ? updateTransferSchema : createTransferSchema),
@@ -42,14 +44,17 @@ const TransfersForm = ({ transfer, isEdit }: TProps) => {
    useEffect(() => {
       const getData = async () => {
          const res = await getUserAccounts()
+         const gol = await getUserGoals()
 
          if (res.accounts) setAccount(res.accounts)
+         if (gol.goals) setGoals(gol.goals)
       }
 
       getData()
    }, [isEdit, transfer])
 
    const accountOptions = account?.map((acc) => ({ label: acc.name, value: acc.id }))
+   const goalOptions = goals?.map((gol) => ({ label: gol.name, value: gol.id }))
 
    async function onSubmit(values: createTransferSchema) {
       try {
@@ -104,6 +109,13 @@ const TransfersForm = ({ transfer, isEdit }: TProps) => {
                label="Account to"
                placeholder="Select an account"
                value={transfer?.accountToId ?? undefined}
+            />
+            <SelectField
+               options={goalOptions}
+               name="goalId"
+               label="Goal"
+               placeholder="Select a goal"
+               value={transfer?.goalId ?? undefined}
             />
             <InputField name="note" label="Note" placeholder="Example note..." autoComplete="off" />
             <Button
