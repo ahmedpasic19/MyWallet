@@ -12,7 +12,6 @@ const AddCategoryDialog = dynamic(() => import('./components/dialogs/add-categor
    ssr: false,
    loading: () => <ButtonSkeleton />,
 })
-
 const CategoriesTable = dynamic(() => import('./components/categories-table'), {
    ssr: false,
    loading: () => <DashboardTableSkeleton noBtn />,

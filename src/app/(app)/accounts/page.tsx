@@ -12,7 +12,6 @@ const AddAccountDialog = dynamic(() => import('./components/dialogs/add-account-
    ssr: false,
    loading: () => <ButtonSkeleton />,
 })
-
 const AccountsTable = dynamic(() => import('./components/accounts-table'), {
    ssr: false,
    loading: () => <DashboardTableSkeleton noBtn />,
