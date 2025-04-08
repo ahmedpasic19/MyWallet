@@ -1,12 +1,18 @@
 import React from 'react'
 
 import { PlusIcon } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
 import { getUserCategoriesWithTotal } from '../actions'
 
 import CategoriesCard from './categories-card'
-import AddCategoryDialog from './dialogs/add-category-dialog'
+import ButtonSkeleton from '@/components/skeleton/button-skeleton'
 import Box from '@/components/ui/box'
+
+const AddCategoryDialog = dynamic(() => import('./dialogs/add-category-dialog'), {
+   ssr: false,
+   loading: () => <ButtonSkeleton />,
+})
 
 export default async function CategoriesList() {
    const categoriesData = await getUserCategoriesWithTotal()

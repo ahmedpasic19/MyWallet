@@ -1,12 +1,18 @@
 import React from 'react'
 
 import { PlusIcon } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
 import { getUserAccountsWithTotal } from '../actions'
 
 import AccountCard from './account-card'
-import AddAccountDialog from './dialogs/add-account-dialog'
+import ButtonSkeleton from '@/components/skeleton/button-skeleton'
 import Box from '@/components/ui/box'
+
+const AddAccountDialog = dynamic(() => import('./dialogs/add-account-dialog'), {
+   ssr: false,
+   loading: () => <ButtonSkeleton />,
+})
 
 export default async function AccountsList() {
    const accountsData = await getUserAccountsWithTotal()
