@@ -1,12 +1,18 @@
 import React from 'react'
 
 import { PlusIcon } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
 import { getUserGoalsWithTotal } from '../actions'
 
-import AddGoalDialog from './dialogs/add-goal-dialog'
 import GoalsCard from './goals-card'
+import ButtonSkeleton from '@/components/skeleton/button-skeleton'
 import Box from '@/components/ui/box'
+
+const AddGoalDialog = dynamic(() => import('./dialogs/add-goal-dialog'), {
+   ssr: false,
+   loading: () => <ButtonSkeleton />,
+})
 
 export default async function GoalsList() {
    const goalsData = await getUserGoalsWithTotal()
